@@ -15,7 +15,7 @@ const CyberNav = () => {
 
         {/* Community Button */}
         <CyberButton 
-          variant="outline" 
+          variant="primary" 
           size="sm"
           icon={<Users className="w-4 h-4" />}
         >

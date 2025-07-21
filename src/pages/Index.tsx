@@ -37,11 +37,12 @@ const Index = () => {
         <div className="text-center space-y-8">
           {/* Main Title */}
           <div className="mb-12">
-            <h1 className="text-5xl font-cyber font-bold text-primary mb-4 glitch-text animate-pulse-glow" data-text="NEURAL TRAINING MATRIX">
-              NEURAL TRAINING MATRIX
+            <h1 className="text-5xl font-cyber font-bold text-primary mb-4 glitch-text animate-pulse-glow" data-text="DATASENSE PRACTICE ARENA">
+              DATASENSE PRACTICE ARENA
             </h1>
             <p className="text-lg font-mono text-muted-foreground tracking-wider">
-              ADVANCED PYTHON & SQL PRACTICE PLATFORM
+              {/* ADVANCED PYTHON & SQL PRACTICE PLATFORM */}
+              EMPOWERING DATA ENTHUSIASTS TO EXPERTISE
             </p>
             <div className="w-32 h-px bg-primary mx-auto mt-4 animate-pulse" />
           </div>
@@ -82,7 +83,7 @@ const Index = () => {
             {/* Custom Test */}
             <div className="group">
               <CyberButton 
-                variant="outline" 
+                variant="primary" 
                 size="lg"
                 className="animate-float"
                 style={{ animationDelay: '1s' }}

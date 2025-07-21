@@ -79,14 +79,122 @@ const GeometricGrid = () => {
   );
 };
 
+// Floating 3D Cubes
+const FloatingCubes = () => {
+  const group = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (group.current) {
+      group.current.rotation.y = state.clock.elapsedTime * 0.05;
+      group.current.children.forEach((child, i) => {
+        child.rotation.x = state.clock.elapsedTime * (0.5 + i * 0.1);
+        child.rotation.z = state.clock.elapsedTime * (0.3 + i * 0.05);
+        child.position.y = Math.sin(state.clock.elapsedTime + i) * 0.5;
+      });
+    }
+  });
+
+  return (
+    <group ref={group}>
+      {Array.from({ length: 12 }).map((_, i) => (
+        <mesh
+          key={i}
+          position={[
+            Math.cos((i / 12) * Math.PI * 2) * 8,
+            Math.sin(i * 0.5) * 3,
+            Math.sin((i / 12) * Math.PI * 2) * 8
+          ]}
+          scale={0.3 + Math.sin(i) * 0.2}
+        >
+          <boxGeometry args={[1, 1, 1]} />
+          <meshBasicMaterial
+            color="#00ffff"
+            opacity={0.3}
+            transparent
+            wireframe
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+};
+
+// Matrix Code Rain Effect
+const MatrixRain = () => {
+  const group = useRef<THREE.Group>(null);
+  
+  useFrame((state) => {
+    if (group.current) {
+      group.current.children.forEach((child, i) => {
+        child.position.y -= 0.05;
+        if (child.position.y < -10) {
+          child.position.y = 10;
+          child.position.x = (Math.random() - 0.5) * 20;
+        }
+      });
+    }
+  });
+
+  return (
+    <group ref={group}>
+      {Array.from({ length: 50 }).map((_, i) => (
+        <mesh
+          key={i}
+          position={[
+            (Math.random() - 0.5) * 20,
+            Math.random() * 20 - 10,
+            -5 - Math.random() * 5
+          ]}
+        >
+          <planeGeometry args={[0.1, 2]} />
+          <meshBasicMaterial
+            color="#00ff41"
+            opacity={0.6}
+            transparent
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+};
+
+// Holographic Torus
+const HolographicTorus = () => {
+  const mesh = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (mesh.current) {
+      mesh.current.rotation.x = state.clock.elapsedTime * 0.3;
+      mesh.current.rotation.y = state.clock.elapsedTime * 0.2;
+      mesh.current.position.z = Math.sin(state.clock.elapsedTime * 0.5) * 2;
+    }
+  });
+
+  return (
+    <mesh ref={mesh} position={[0, 0, -8]}>
+      <torusGeometry args={[3, 0.8, 16, 100]} />
+      <meshBasicMaterial
+        color="#ff00ff"
+        opacity={0.4}
+        transparent
+        wireframe
+      />
+    </mesh>
+  );
+};
+
 const ThreeBackground = () => {
   return (
     <div className="fixed inset-0 -z-10">
       <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
+        <ambientLight intensity={0.3} />
+        <pointLight position={[10, 10, 10]} color="#00ffff" intensity={0.5} />
+        <pointLight position={[-10, -10, -10]} color="#ff00ff" intensity={0.3} />
         <ParticleField />
         <GeometricGrid />
+        <FloatingCubes />
+        <MatrixRain />
+        <HolographicTorus />
       </Canvas>
     </div>
   );

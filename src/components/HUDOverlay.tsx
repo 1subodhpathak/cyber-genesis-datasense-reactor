@@ -67,9 +67,21 @@ const HUDOverlay = () => {
         </div>
       </div>
 
-      {/* Grid Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-10 opacity-5">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.1)_1px,transparent_1px)] bg-[50px_50px]" />
+      {/* Enhanced Grid Overlay with Scan Lines */}
+      <div className="fixed inset-0 pointer-events-none z-10 opacity-10">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.15)_1px,transparent_1px)] bg-[50px_50px]" />
+        {/* Horizontal scan lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,255,0.1)_1px,transparent_4px)] animate-scan" />
+        {/* Vertical data streams */}
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,0,255,0.05)_1px,transparent_6px)]" />
+      </div>
+
+      {/* Radar Sweep */}
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 pointer-events-none z-10">
+        <div className="absolute inset-0 rounded-full border border-primary/20" />
+        <div className="absolute inset-4 rounded-full border border-primary/15" />
+        <div className="absolute inset-8 rounded-full border border-primary/10" />
+        <div className="absolute top-1/2 left-1/2 w-1 h-48 bg-gradient-to-t from-primary/60 to-transparent origin-bottom animate-spin duration-[8s]" style={{ transformOrigin: 'bottom center' }} />
       </div>
 
       {/* Corner Frames */}

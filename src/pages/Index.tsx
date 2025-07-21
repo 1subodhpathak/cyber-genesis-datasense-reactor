@@ -4,7 +4,9 @@ import ThreeBackground from '@/components/ThreeBackground';
 import CyberNav from '@/components/CyberNav';
 import CyberButton from '@/components/CyberButton';
 import HUDOverlay from '@/components/HUDOverlay';
-import { Activity, Settings } from 'lucide-react';
+import SQLTerminal from '@/components/SQLTerminal';
+import DataVisualization from '@/components/DataVisualization';
+import { Activity } from 'lucide-react';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +22,12 @@ const Index = () => {
       
       {/* HUD Overlay */}
       <HUDOverlay />
+      
+      {/* SQL Terminal */}
+      <SQLTerminal />
+      
+      {/* Data Visualization */}
+      <DataVisualization />
       
       {/* Navigation */}
       <CyberNav />

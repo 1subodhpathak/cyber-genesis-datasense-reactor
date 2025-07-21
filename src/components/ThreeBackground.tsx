@@ -119,42 +119,17 @@ const FloatingCubes = () => {
   );
 };
 
-// Enhanced Matrix Code Rain Effect
+// Matrix Code Rain Effect
 const MatrixRain = () => {
   const group = useRef<THREE.Group>(null);
-  const matrixChars = useMemo(() => {
-    return Array.from({ length: 100 }).map((_, i) => ({
-      char: Math.random() > 0.5 ? '1' : '0',
-      speed: 0.02 + Math.random() * 0.08,
-      opacity: 0.3 + Math.random() * 0.7,
-      scale: 0.5 + Math.random() * 1.5,
-      glitch: Math.random() > 0.8,
-    }));
-  }, []);
   
   useFrame((state) => {
     if (group.current) {
       group.current.children.forEach((child, i) => {
-        const data = matrixChars[i];
-        child.position.y -= data.speed;
-        
-        // Add glitch effect
-        if (data.glitch && Math.random() > 0.95) {
-          child.position.x += (Math.random() - 0.5) * 0.5;
-        }
-        
-        // Reset position with new random character
-        if (child.position.y < -15) {
-          child.position.y = 15 + Math.random() * 5;
-          child.position.x = (Math.random() - 0.5) * 30;
-          child.position.z = -2 - Math.random() * 8;
-          data.char = Math.random() > 0.5 ? '1' : '0';
-          data.opacity = 0.3 + Math.random() * 0.7;
-        }
-        
-        // Animate opacity for robotic blinking effect
-        if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshBasicMaterial) {
-          child.material.opacity = data.opacity * (0.5 + 0.5 * Math.sin(state.clock.elapsedTime * 10 + i));
+        child.position.y -= 0.05;
+        if (child.position.y < -10) {
+          child.position.y = 10;
+          child.position.x = (Math.random() - 0.5) * 20;
         }
       });
     }
@@ -162,42 +137,20 @@ const MatrixRain = () => {
 
   return (
     <group ref={group}>
-      {matrixChars.map((data, i) => (
+      {Array.from({ length: 50 }).map((_, i) => (
         <mesh
           key={i}
           position={[
-            (Math.random() - 0.5) * 30,
-            Math.random() * 30 - 15,
-            -2 - Math.random() * 8
+            (Math.random() - 0.5) * 20,
+            Math.random() * 20 - 10,
+            -5 - Math.random() * 5
           ]}
-          scale={[data.scale, data.scale, 1]}
         >
-          <planeGeometry args={[0.2, 0.8]} />
+          <planeGeometry args={[0.1, 2]} />
           <meshBasicMaterial
-            color={data.char === '1' ? "#00ff41" : "#00ffff"}
-            opacity={data.opacity}
+            color="#00ff41"
+            opacity={0.6}
             transparent
-          />
-        </mesh>
-      ))}
-      
-      {/* Add some larger robotic symbols */}
-      {Array.from({ length: 20 }).map((_, i) => (
-        <mesh
-          key={`symbol-${i}`}
-          position={[
-            (Math.random() - 0.5) * 25,
-            Math.random() * 25 - 12,
-            -1 - Math.random() * 6
-          ]}
-          rotation={[0, 0, Math.random() * Math.PI]}
-        >
-          <ringGeometry args={[0.1, 0.3, 6]} />
-          <meshBasicMaterial
-            color="#ff0080"
-            opacity={0.4}
-            transparent
-            wireframe
           />
         </mesh>
       ))}
@@ -213,6 +166,7 @@ const HolographicTorus = () => {
     if (mesh.current) {
       mesh.current.rotation.x = state.clock.elapsedTime * 0.3;
       mesh.current.rotation.y = state.clock.elapsedTime * 0.2;
+      mesh.current.position.z = Math.sin(state.clock.elapsedTime * 0.5) * 2;
     }
   });
 

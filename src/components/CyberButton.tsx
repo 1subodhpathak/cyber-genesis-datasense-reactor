@@ -24,9 +24,9 @@ const CyberButton = ({
   const baseClasses = "relative overflow-hidden font-mono font-bold tracking-wider transition-all duration-300 group";
   
   const variantClasses = {
-    primary: "bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-background cyber-glow",
-    secondary: "bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-background",
-    outline: "bg-transparent border border-muted-foreground text-muted-foreground hover:border-primary hover:text-primary"
+    primary: "bg-[#1FC4D6] border-2 border-primary text-white hover:bg-primary hover:text-background cyber-glow",
+    secondary: "bg-[#1FC4D6] border-2 border-accent text-white hover:bg-accent hover:text-background",
+    outline: "bg-[#1FC4D6] border border-muted-foreground text-white hover:border-primary hover:text-primary"
   };
 
   const sizeClasses = {

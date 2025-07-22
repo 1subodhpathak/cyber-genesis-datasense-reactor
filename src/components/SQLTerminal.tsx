@@ -84,8 +84,9 @@ const SQLTerminal = () => {
   }, [currentQuery]);
 
   return (
-    <div className="fixed left-6 top-1/2 -translate-y-1/2 z-20 w-80">
-      <div className="hud-overlay border border-primary/30 p-4 h-64 overflow-hidden">
+    <div className="fixed left-6 top-1/2 -translate-y-1/2 z-20 w-60">
+      <div className="hud-overlay border border-0 p-4 h-64 overflow-hidden">
+      {/* <div className="hud-overlay border border-primary/30 p-4 h-64 overflow-hidden"> */}
         <div className="flex items-center gap-2 mb-3 border-b border-primary/20 pb-2">
           <div className="w-3 h-3 rounded-full bg-cyber-success animate-pulse" />
           <span className="text-xs font-mono text-primary">SQL NEURAL TERMINAL</span>

@@ -164,21 +164,21 @@ const HolographicTorus = () => {
 
   useFrame((state) => {
     if (mesh.current) {
-      mesh.current.rotation.x = state.clock.elapsedTime * 0.3;
+      // mesh.current.rotation.x = state.clock.elapsedTime * 0.3;
       mesh.current.rotation.y = state.clock.elapsedTime * 0.2;
-      mesh.current.position.z = Math.sin(state.clock.elapsedTime * 0.5) * 2;
+      // mesh.current.position.z = Math.sin(state.clock.elapsedTime * 0.5) * 2;
     }
   });
 
   return (
     <mesh ref={mesh} position={[0, 0, -8]}>
-      <torusGeometry args={[3, 0.8, 16, 100]} />
-      <meshBasicMaterial
+      {/* <torusGeometry args={[3, 0.8, 16, 100]} /> */}
+      {/* <meshBasicMaterial
         color="#ff00ff"
         opacity={0.4}
         transparent
         wireframe
-      />
+      /> */}
     </mesh>
   );
 };
@@ -193,7 +193,7 @@ const ThreeBackground = () => {
         <ParticleField />
         <GeometricGrid />
         <FloatingCubes />
-        <MatrixRain />
+        {/* <MatrixRain /> */}
         <HolographicTorus />
       </Canvas>
     </div>

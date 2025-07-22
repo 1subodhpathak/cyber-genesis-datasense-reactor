@@ -236,3 +236,85 @@
   0% { transform: translateY(-100vh); opacity: 1; }
   100% { transform: translateY(100vh); opacity: 0; }
 }
+
+/* Glitch Popup Animation */
+@keyframes glitch-popup {
+  0% { filter: blur(8px) brightness(1.2); opacity: 0; transform: scale(0.95) skewX(-8deg); }
+  10% { filter: blur(2px) brightness(1.1); opacity: 0.7; transform: scale(1.02) skewX(2deg); }
+  20% { filter: blur(0.5px) brightness(1.05); opacity: 1; transform: scale(1) skewX(-1deg); }
+  100% { filter: none; opacity: 1; transform: none; }
+}
+.animate-glitch-popup {
+  animation: glitch-popup 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Glitch Text Animations */
+@keyframes glitch-main {
+  0%, 100% { transform: translate(0); }
+  10% { transform: translate(-2px, 1px); }
+  20% { transform: translate(2px, -1px); }
+  30% { transform: translate(-1px, 2px); }
+  40% { transform: translate(1px, -2px); }
+  50% { transform: translate(-2px, -1px); }
+  60% { transform: translate(2px, 1px); }
+  70% { transform: translate(-1px, -2px); }
+  80% { transform: translate(1px, 2px); }
+  90% { transform: translate(-2px, 1px); }
+}
+@keyframes glitch-red {
+  0%, 100% { transform: translate(0); opacity: 0.8; }
+  10% { transform: translate(-3px, 2px); opacity: 0.9; }
+  20% { transform: translate(3px, -2px); opacity: 0.7; }
+  30% { transform: translate(-2px, 3px); opacity: 0.8; }
+  40% { transform: translate(2px, -3px); opacity: 0.9; }
+  50% { transform: translate(-3px, -2px); opacity: 0.6; }
+  60% { transform: translate(3px, 2px); opacity: 0.8; }
+  70% { transform: translate(-2px, -3px); opacity: 0.9; }
+  80% { transform: translate(2px, 3px); opacity: 0.7; }
+  90% { transform: translate(-3px, 2px); opacity: 0.8; }
+}
+@keyframes glitch-blue {
+  0%, 100% { transform: translate(0); opacity: 0.8; }
+  15% { transform: translate(2px, -3px); opacity: 0.9; }
+  25% { transform: translate(-2px, 3px); opacity: 0.7; }
+  35% { transform: translate(3px, -2px); opacity: 0.8; }
+  45% { transform: translate(-3px, 2px); opacity: 0.9; }
+  55% { transform: translate(2px, 3px); opacity: 0.6; }
+  65% { transform: translate(-2px, -3px); opacity: 0.8; }
+  75% { transform: translate(3px, 2px); opacity: 0.9; }
+  85% { transform: translate(-3px, -2px); opacity: 0.7; }
+  95% { transform: translate(2px, -3px); opacity: 0.8; }
+}
+@keyframes glitch-cyan {
+  0%, 100% { transform: translate(0); opacity: 0.6; }
+  12% { transform: translate(1px, -2px); opacity: 0.8; }
+  24% { transform: translate(-1px, 2px); opacity: 0.5; }
+  36% { transform: translate(2px, -1px); opacity: 0.7; }
+  48% { transform: translate(-2px, 1px); opacity: 0.8; }
+  60% { transform: translate(1px, 2px); opacity: 0.4; }
+  72% { transform: translate(-1px, -2px); opacity: 0.7; }
+  84% { transform: translate(2px, 1px); opacity: 0.8; }
+  96% { transform: translate(-2px, -1px); opacity: 0.6; }
+}
+.animate-glitch-main {
+  animation: glitch-main 0.3s infinite linear;
+}
+.animate-glitch-red {
+  animation: glitch-red 0.4s infinite linear;
+}
+.animate-glitch-blue {
+  animation: glitch-blue 0.35s infinite linear;
+}
+.animate-glitch-cyan {
+  animation: glitch-cyan 0.45s infinite linear;
+}
+
+/* Holographic Panel Animations */
+@keyframes holographicGlow {
+  0% { opacity: 0.1; transform: scale(1); }
+  100% { opacity: 0.3; transform: scale(1.02); }
+}
+@keyframes scanLine {
+  0% { top: -2px; }
+  100% { top: 100%; }
+}

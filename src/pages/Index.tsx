@@ -6,37 +6,75 @@ import CyberButton from '@/components/CyberButton';
 import HUDOverlay from '@/components/HUDOverlay';
 import SQLTerminal from '@/components/SQLTerminal';
 import DataVisualization from '@/components/DataVisualization';
-import { Activity } from 'lucide-react';
+import { LayoutDashboard } from 'lucide-react';
+import GlobeLottie from '@/components/GlobeLottie';
+import PathTrackerHUD from '@/components/PathTrackerHUD';
+import FuturisticGlitchPopup from '@/components/FuturisticGlitchPopup';
+// import SignalRadarHUD from '@/components/SignalRadarHUD';
+import DataStreamHUD from '@/components/DataStreamHUD';
+import CyberCoreHUD from '@/components/CyberCoreHUD';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupBadge, setPopupBadge] = useState('SQL');
+  const [popupDesc, setPopupDesc] = useState('');
+  const [popupLink, setPopupLink] = useState('');
+
+  // Map badgeType to description and link
+  const popupData = {
+    SQL: {
+      description: 'Ready to join a live SQL quiz? You will be redirected to the SQL quiz arena.',
+      yesLink: '#',
+    },
+    Dashboard: {
+      description: 'Access the neural dashboard for advanced analytics and controls.',
+      yesLink: '#',
+    },
+    'Custom Test': {
+      description: 'Start a custom test tailored to your skills and interests.',
+      yesLink: '#',
+    },
+    'Mock Quiz': {
+      description: 'Take a mock quiz to practice and improve your performance.',
+      yesLink: '#',
+    },
+    'Practice Question': {
+      description: 'Practice with individual questions to sharpen your knowledge.',
+      yesLink: '#',
+    },
+  };
 
   if (isLoading) {
     return <CyberLoader onComplete={() => setIsLoading(false)} />;
   }
 
+  // Helper to open popup with badge type
+  const handleOpenPopup = (badgeType) => {
+    setPopupBadge(badgeType);
+    setPopupDesc(popupData[badgeType]?.description || 'Are you ready to proceed?');
+    setPopupLink(popupData[badgeType]?.yesLink || '/');
+    setPopupOpen(true);
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Three.js Background */}
       <ThreeBackground />
-      
       {/* HUD Overlay */}
-      <HUDOverlay />
-      
+      {/* <HUDOverlay /> */}
+      <PathTrackerHUD />
       {/* SQL Terminal */}
       <SQLTerminal />
-      
       {/* Data Visualization */}
       <DataVisualization />
-      
       {/* Navigation */}
       <CyberNav />
-
       {/* Main Content */}
       <div className="flex items-center justify-center h-screen relative z-20">
         <div className="text-center space-y-8">
           {/* Main Title */}
-          <div className="mb-12">
+          <div className="mb-16">
             <h1 className="text-5xl font-cyber font-bold text-primary mb-4 glitch-text animate-pulse-glow" data-text="DATASENSE PRACTICE ARENA">
               DATASENSE PRACTICE ARENA
             </h1>
@@ -46,58 +84,83 @@ const Index = () => {
             </p>
             <div className="w-32 h-px bg-primary mx-auto mt-4 animate-pulse" />
           </div>
-
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-8 items-center justify-center">
-            {/* Join Live Quizzes */}
-            <div className="group">
+          <div className="pb-8">
+            <div className="flex flex-col sm:flex-row gap-8 items-center justify-center">
+              {/* Join Live Quizzes */}
+              <div className="group">
+                <CyberButton 
+                  variant="primary" 
+                  size="lg"
+                  className="animate-float w-64"
+                  style={{ animationDelay: '0s' }}
+                  onClick={() => handleOpenPopup('SQL')}
+                >
+                  JOIN LIVE QUIZZES
+                </CyberButton>
+                <div className="text-xs font-mono text-muted-foreground mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  REAL-TIME NEURAL CHALLENGES
+                </div>
+              </div>
+              {/* Dashboard */}
+              <div className="group">
+                <CyberButton 
+                  variant="secondary" 
+                  size="lg"
+                  className="animate-float text-lg"
+                  style={{ animationDelay: '0.5s' }}
+                  icon={
+                    <LayoutDashboard className="w-12 h-12 font-bold" fill="currentColor" color="currentColor" />
+                  }
+                  onClick={() => handleOpenPopup('Dashboard')}
+                >
+                  {/* Only icon, no text as requested */}
+                </CyberButton>
+                <div className="text-xs font-mono text-muted-foreground mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  NEURAL DASHBOARD ACCESS
+                </div>
+              </div>
+              {/* Custom Test */}
+              <div className="group">
+                <CyberButton 
+                  variant="primary" 
+                  size="lg"
+                  className="animate-float w-64"
+                  style={{ animationDelay: '1s' }}
+                  onClick={() => handleOpenPopup('Custom Test')}
+                >
+                  CUSTOM TEST
+                </CyberButton>
+                <div className="text-xs font-mono text-muted-foreground mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  PERSONALIZED TRAINING PROTOCOLS
+                </div>
+              </div>
+            </div>
+            {/* New row for MOCK QUIZ and PRACTICE QUESTION */}
+            <div className="flex flex-col sm:flex-row gap-8 items-center justify-center mt-8">
               <CyberButton 
                 variant="primary" 
                 size="lg"
-                className="animate-float"
-                style={{ animationDelay: '0s' }}
+                className="animate-float w-64"
+                style={{ animationDelay: '1.2s' }}
+                onClick={() => handleOpenPopup('Mock Quiz')}
               >
-                JOIN LIVE QUIZZES
+                MOCK QUIZ
               </CyberButton>
-              <div className="text-xs font-mono text-muted-foreground mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                REAL-TIME NEURAL CHALLENGES
-              </div>
-            </div>
-
-            {/* Dashboard */}
-            <div className="group">
-              <CyberButton 
-                variant="secondary" 
-                size="lg"
-                icon={<Activity className="w-6 h-6" />}
-                className="animate-float"
-                style={{ animationDelay: '0.5s' }}
-              >
-                {/* Only icon, no text as requested */}
-              </CyberButton>
-              <div className="text-xs font-mono text-muted-foreground mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                NEURAL DASHBOARD ACCESS
-              </div>
-            </div>
-
-            {/* Custom Test */}
-            <div className="group">
+              
               <CyberButton 
                 variant="primary" 
                 size="lg"
-                className="animate-float"
-                style={{ animationDelay: '1s' }}
+                className="animate-float w-64"
+                style={{ animationDelay: '1.4s' }}
+                onClick={() => handleOpenPopup('Practice Question')}
               >
-                CUSTOM TEST
+                PRACTICE QUESTION
               </CyberButton>
-              <div className="text-xs font-mono text-muted-foreground mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                PERSONALIZED TRAINING PROTOCOLS
-              </div>
             </div>
           </div>
-
           {/* Central HUD Display */}
-          <div className="mt-16 hud-overlay border border-primary/30 p-6 max-w-md mx-auto">
+          <div className="mb-16 hud-overlay border border-primary/30 p-6 max-w-md mx-auto">
             <div className="text-center">
               <div className="text-primary font-mono text-sm mb-2">TRAINING MATRIX STATUS</div>
               <div className="flex justify-center space-x-4 text-xs font-mono">
@@ -113,7 +176,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-
       {/* Floating Geometric Elements */}
       <div className="fixed inset-0 pointer-events-none z-10">
         {Array.from({ length: 5 }).map((_, i) => (
@@ -131,6 +193,16 @@ const Index = () => {
           />
         ))}
       </div>
+      {/* Place GlobeLottie just left of the TRAINING MATRIX STATUS box */}
+      <GlobeLottie style={{ position: 'absolute', left: 200, bottom: 40, width: 220, height: 220, zIndex: 30, pointerEvents: 'none', filter: 'drop-shadow(0 0 16px #00fff7cc)', background: 'transparent' }} />
+      {/* <GlobeHUD /> */}
+      {/* Popup */}
+      <FuturisticGlitchPopup open={popupOpen} onClose={() => setPopupOpen(false)} badgeType={popupBadge} description={popupDesc} yesLink={popupLink} />
+      {/* Place SignalRadarHUD in bottom left */}
+      {/* <CyberCoreHUD style={{ left: 12, bottom: 12 }} /> */}
+      {/* Place DataStreamHUD in bottom right */}
+      <CyberCoreHUD style={{ right: 12, bottom: 12 }} />
+      {/* <DataStreamHUD style={{ right: 32, bottom: 32 }} /> */}
     </div>
   );
 };

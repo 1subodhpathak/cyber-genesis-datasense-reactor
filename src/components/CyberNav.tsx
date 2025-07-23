@@ -7,7 +7,7 @@ const CyberNav = () => {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="group">
-          <img src="src/assets/images/logo.png" alt="DATASENSE" className="h-10 md:h-12 rounded-lg shadow-lg" />
+          <img src="assets/logo.png" alt="DATASENSE" className="h-10 md:h-12 rounded-lg shadow-lg" />
           {/* <h1 className="text-2xl font-cyber font-bold text-primary glitch-text cyber-glow" data-text="DATASENSE">
             DATASENSE
           </h1> */}

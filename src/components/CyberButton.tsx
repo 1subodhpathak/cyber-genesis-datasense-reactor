@@ -10,6 +10,7 @@ interface CyberButtonProps {
   onClick?: () => void;
   icon?: ReactNode;
   style?: React.CSSProperties;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const CyberButton = ({ 
@@ -19,6 +20,7 @@ const CyberButton = ({
   className,
   onClick,
   icon,
+  type,
   style
 }: CyberButtonProps) => {
   const baseClasses = "relative overflow-hidden font-mono font-bold tracking-wider transition-all duration-300 group";

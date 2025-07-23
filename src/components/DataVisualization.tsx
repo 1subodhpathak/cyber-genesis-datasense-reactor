@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 
-const HUD_WIDTH = 260;
-const HUD_HEIGHT = 300; // Increased to fit the animated bar chart
+const HUD_WIDTH = 240;
+const HUD_HEIGHT = 250; // Increased to fit the animated bar chart
 const BAR_CHART_BARS = 12;
 const BAR_CHART_HEIGHT = 70;
 const BAR_CHART_LABEL_SPACE = 18; // Space for labels below bars
@@ -139,7 +139,7 @@ const DataVisualization = () => {
       style={{
         position: 'fixed',
         right: 18,
-        top: 'calc(50% - 200px)',
+        top: 'calc(50% - 280px)',
         width: HUD_WIDTH,
         height: HUD_HEIGHT,
         pointerEvents: 'auto',

@@ -1,20 +1,23 @@
 import Lottie from 'lottie-react';
-import globeAnimation from '../assets/lottie/globe.json';
+import worldMapAnimation from '../assets/lottie/cc1XpRzNqK.json';
 import React from 'react';
 
 const defaultStyle: React.CSSProperties = {
   position: 'fixed',
-
-  zIndex: 50,
+  // left: 32,
+  // bottom: 32,
+  width: 260,
+  height: 120,
+  zIndex: 40,
   pointerEvents: 'none',
-  // filter: 'drop-shadow(0 0 16px #00fff7cc)',
+  // filter: 'drop-shadow(0 0 16px) brightness(0) saturate(100%) invert(70%) sepia(100%) hue-rotate(160deg) brightness(1.5)',
   background: 'transparent',
 };
 
-const GlobeLottie = ({ style }: { style?: React.CSSProperties }) => (
+const WorldMapHUD = ({ style }: { style?: React.CSSProperties }) => (
   <div style={{ ...defaultStyle, ...style }}>
     <Lottie
-      animationData={globeAnimation}
+      animationData={worldMapAnimation}
       loop
       autoplay
       style={{ width: '100%', height: '100%', background: 'transparent' }}
@@ -23,4 +26,4 @@ const GlobeLottie = ({ style }: { style?: React.CSSProperties }) => (
   </div>
 );
 
-export default GlobeLottie; 
+export default WorldMapHUD;

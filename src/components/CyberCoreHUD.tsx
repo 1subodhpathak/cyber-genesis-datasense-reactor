@@ -1,33 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-
-const DURATION = 999999; // No fade
-// const GLYPHS = '0123456789ABCDEF';
-const GLYPH_COUNT = 18;
+import React, { useEffect, useRef } from 'react';
 
 const CyberCoreHUD = ({ style }) => {
-  const [glyphs, setGlyphs] = useState(Array(GLYPH_COUNT).fill('0'));
   const canvasRef = useRef(null);
   const animRef = useRef<number | null>(null);
-
-  // Animate glyphs
-  // useEffect(() => {
-  //   let running = true;
-  //   function animateGlyphs() {
-  //     // setGlyphs(g => g.map(() => GLYPHS[Math.floor(Math.random() * GLYPHS.length)]));
-  //     // if (running) setTimeout(animateGlyphs, 60);
-  //   }
-  //   // animateGlyphs();
-  //   return () => { running = false; };
-  // }, []);
 
   // Canvas animation
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    let width = 220, height = 220;
+    let width = 200, height = 200;
     let dpr = window.devicePixelRatio || 1;
     function resize() {
-      width = 220; height = 220;
+      width = 200; height = 200;
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       canvas.style.width = width + 'px';
@@ -92,22 +76,6 @@ const CyberCoreHUD = ({ style }) => {
       ctx.shadowBlur = 18;
       ctx.stroke();
       ctx.restore();
-      // Data streams (moving packets)
-      // for (let i = 0; i < 3; i++) {
-      //   ctx.save();
-      //   ctx.translate(width/2, height/2);
-      //   ctx.rotate(t * (0.7 + i*0.3) + i*1.1);
-      //   const packetAngle = ((t*1.5 + i*0.7) % 1) * 2 * Math.PI;
-      //   const r = 48 + i*18;
-      //   ctx.beginPath();
-      //   ctx.arc(Math.cos(packetAngle)*r, Math.sin(packetAngle)*r, 6, 0, 2*Math.PI);
-      //   ctx.fillStyle = 'rgba(0,255,247,0.7)';
-      //   ctx.shadowColor = '#4dd0e1';
-      //   ctx.shadowBlur = 16;
-      //   ctx.fill();
-      //   ctx.restore();
-      // }
-      // Subtle grid overlay
       ctx.save();
       ctx.globalAlpha = 0.13;
       ctx.strokeStyle = '#00fff7';
@@ -129,44 +97,29 @@ const CyberCoreHUD = ({ style }) => {
   return (
     <div style={{
       position: 'fixed',
-      right: 32,
+      left: 32,
       bottom: 32,
-      width: 220,
-      height: 220,
+      width: 200,
+      height: 200,
       zIndex: 40,
       pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
       ...style,
     }}>
       <canvas
         ref={canvasRef}
-        width={220}
-        height={220}
+        width={200}
+        height={200}
         style={{
           zIndex: 2,
-          width: 220,
-          height: 220,
           background: 'transparent',
           filter: 'drop-shadow(0 0 16px #00fff7)',
+          width: 200,
+          height: 200,
         }}
       />
-      {/* Fast-changing glyphs/numbers */}
-      {/* <div style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 10,
-        fontFamily: 'JetBrains Mono, monospace',
-        fontSize: 16,
-        color: '#00fff7',
-        letterSpacing: 2,
-        opacity: 0.55,
-        textShadow: '0 0 8px #00fff7',
-        zIndex: 2,
-        userSelect: 'none',
-        textAlign: 'center',
-      }}>
-        {glyphs.join(' ')}
-      </div> */}
       {/* Subtle scanlines overlay */}
       <div style={{
         pointerEvents: 'none',
@@ -185,6 +138,7 @@ const CyberCoreHUD = ({ style }) => {
       `}</style>
     </div>
   );
+  
 };
 
 export default CyberCoreHUD;

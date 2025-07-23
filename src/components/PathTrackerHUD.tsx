@@ -75,8 +75,8 @@ const PathTrackerHUD: React.FC<{ style?: React.CSSProperties }> = ({ style }) =>
     <div
       style={{
         position: 'fixed',
-        right:252,
-        bottom: 32,
+        right:12,
+        bottom: 150,
         width: GRID_SIZE + 16,
         height: GRID_SIZE + 14,
         zIndex: 50,
@@ -86,7 +86,7 @@ const PathTrackerHUD: React.FC<{ style?: React.CSSProperties }> = ({ style }) =>
       className="select-none"
     >
       <div
-        className="hud-overlay border border-0 shadow-xl p-2 bg-transparent animate-float"
+        className="hud-overlay border border-0 shadow-xl p-2 bg-transparent"
         style={{ width: GRID_SIZE + 16, height: GRID_SIZE + 32 }}
       >
         <svg width={GRID_SIZE} height={GRID_SIZE} style={{ display: 'block', margin: '0 auto' }}>

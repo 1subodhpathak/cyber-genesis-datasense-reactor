@@ -149,9 +149,7 @@ const CyberNav = () => {
                 showSocial ? 'animate-pulse scale-110' : ''
               }`} />
               {/* Notification dot with pulse */}
-              <div className={`absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full transition-all duration-300 ${
-                showSocial ? 'animate-ping' : ''
-              }`} />
+              <div className={`absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full transition-all duration-300`} />
               
               {/* Scanning ring effect */}
               {showSocial && (

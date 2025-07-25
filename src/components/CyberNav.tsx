@@ -10,7 +10,6 @@ import {
   FaWhatsapp,
   FaFacebook
 } from "react-icons/fa";
-// import { title } from 'process';
 
 const socialLinks = [
   { icon: FaYoutube, title: "Youtube", url: "https://youtube.com" },

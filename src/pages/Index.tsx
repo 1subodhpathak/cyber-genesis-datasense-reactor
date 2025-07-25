@@ -229,7 +229,7 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-[100dvh] relative overflow-auto">
       {/* Three.js Background - Always render */}
       <ThreeBackground />
       

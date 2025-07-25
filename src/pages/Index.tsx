@@ -595,6 +595,28 @@ const useIsMobile = () => {
   return isMobile;
 };
 
+// Custom hook for proper mobile viewport height
+const useViewportHeight = () => {
+  const [vh, setVh] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const updateVh = () => {
+      setVh(window.innerHeight);
+    };
+
+    updateVh();
+    window.addEventListener('resize', updateVh);
+    window.addEventListener('orientationchange', updateVh);
+    
+    return () => {
+      window.removeEventListener('resize', updateVh);
+      window.removeEventListener('orientationchange', updateVh);
+    };
+  }, []);
+
+  return vh;
+};
+
 // AnimatedBar component for smooth progress animation
 const AnimatedBar = ({ percent, color }: { percent: number; color: string }) => {
   const [progress, setProgress] = useState(0);
@@ -745,6 +767,7 @@ const Index = () => {
   const [popupDesc, setPopupDesc] = useState('');
   const [popupLink, setPopupLink] = useState('');
   const isMobile = useIsMobile();
+  const vh = useViewportHeight();
 
   const buttonclickRef = useRef<HTMLAudioElement | null>(null);
 
@@ -793,7 +816,13 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div 
+      className="relative w-full overflow-x-hidden"
+      style={{ 
+        minHeight: isMobile ? `${vh}px` : '100vh',
+        height: isMobile ? `${vh}px` : 'auto'
+      }}
+    >
       {/* Three.js Background - Always render */}
       <ThreeBackground />
       
@@ -838,118 +867,124 @@ const Index = () => {
         </>
       )}
       
-      {/* Navigation - Always render */}
-      <CyberNav />
+      {/* Navigation - Always render with proper mobile positioning */}
+      <div className={isMobile ? "relative z-50" : ""}>
+        <CyberNav />
+      </div>
       
       {/* Main Content */}
       <audio ref={buttonclickRef} src={buttonClickSound} preload="auto" />
-      <div className="flex flex-col min-h-screen relative overflow-auto">
+      <div 
+        className="flex flex-col w-full relative"
+        style={{ 
+          minHeight: isMobile ? `${vh - 60}px` : 'calc(100vh - 60px)', // Account for navbar height
+          paddingTop: isMobile ? '60px' : '0' // Add padding for fixed navbar on mobile
+        }}
+      >
         {/* Mobile Layout */}
         {isMobile ? (
-          <div className="min-h-screen overflow-y-auto">
-            <div className="flex flex-col min-h-screen p-4 pt-24 pb-6">
-              {/* Title Area */}
-              <div className="text-center mb-16 pt-4">
-                <div className="relative w-fit mx-auto">
-                  <div className="absolute inset-0 animate-pulse-glow bg-cyan-400/20 blur-xl rounded-lg pointer-events-none"></div>
-                  <h1 className="text-3xl sm:text-4xl font-black-ops-one font-bold text-primary mb-3">
-                    DATASENSE PRACTICE ARENA
-                  </h1>
-                  <p className="text-sm font-mono text-white ">
-                    EMPOWERING DATA ENTHUSIASTS TO EXPERTISE
-                  </p>
+          <div className="flex flex-col w-full p-4 overflow-y-auto">
+            {/* Title Area */}
+            <div className="text-center mb-8 pt-4">
+              <div className="relative w-fit mx-auto">
+                <div className="absolute inset-0 animate-pulse-glow bg-cyan-400/20 blur-xl rounded-lg pointer-events-none"></div>
+                <h1 className="text-2xl sm:text-3xl font-black-ops-one font-bold text-primary mb-3">
+                  DATASENSE PRACTICE ARENA
+                </h1>
+                <p className="text-xs sm:text-sm font-mono text-white ">
+                  EMPOWERING DATA ENTHUSIASTS TO EXPERTISE
+                </p>
+              </div>
+            </div>
+            
+            {/* Button Area */}
+            <div className="flex-1 flex items-center justify-center mb-8">
+              <div className="space-y-6 w-full max-w-sm">
+                {/* First row - Two buttons */}
+                <div className="flex gap-3 justify-center">
+                  <CyberButton 
+                    variant="primary" 
+                    size="sm"
+                    className="flex-1 min-w-0"
+                    style={{ animationDelay: '0s' }}
+                    onClick={() => handleOpenPopup('SQL')}
+                  >
+                    Join Live Tests
+                  </CyberButton>
+                  
+                  <CyberButton 
+                    variant="primary" 
+                    size="sm"
+                    className="flex-1 min-w-0"
+                    style={{ animationDelay: '0s' }}
+                    onClick={() => handleOpenPopup('Custom Test')}
+                  >
+                    Custom Test
+                  </CyberButton>
+                </div>
+                
+                {/* Second row - Dashboard button (circular) */}
+                <div className="flex justify-center">
+                  <CyberButton
+                    variant="secondary"
+                    size="md"
+                    className="
+                      !rounded-full
+                      !w-14 !h-14
+                      p-0
+                      shadow-cyan-400/40 hover:shadow-cyan-400/80 transition-shadow
+                      animate-spin-slow
+                      ring-2 ring-cyan-400/60 hover:ring-cyan-400/90
+                      relative
+                      group
+                    "
+                    style={{
+                      minWidth: '3.5rem',
+                      minHeight: '3.5rem',
+                      width: '3.5rem',
+                      height: '3.5rem',
+                      animationDelay: '0s'
+                    }}
+                    icon={
+                      <LayoutDashboard
+                        className="w-7 h-7 font-bold flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                        fill="currentColor"
+                        color="currentColor"
+                      />
+                    }
+                    onClick={() => handleOpenPopup('Dashboard')}
+                  >
+                  </CyberButton>
+                </div>
+                
+                {/* Third row - Two buttons */}
+                <div className="flex gap-3 justify-center">
+                  <CyberButton 
+                    variant="primary" 
+                    size="sm"
+                    className="flex-1 min-w-0"
+                    style={{ animationDelay: '0s' }}
+                    onClick={() => handleOpenPopup('Mock Quiz')}
+                  >
+                    Mock Tests
+                  </CyberButton>
+                  
+                  <CyberButton 
+                    variant="primary" 
+                    size="sm"
+                    className="flex-1 min-w-0"
+                    style={{ animationDelay: '0s' }}
+                    onClick={() => handleOpenPopup('Practice Question')}
+                  >
+                    Practice Question
+                  </CyberButton>
                 </div>
               </div>
-              
-              {/* Button Area */}
-              <div className="flex-1 flex items-center justify-center mb-16">
-                <div className="space-y-6">
-                  {/* First row - Two buttons */}
-                  <div className="flex gap-4 justify-center">
-                    <CyberButton 
-                      variant="primary" 
-                      size="sm"
-                      className="flex-1 max-w-[200px]"
-                      style={{ animationDelay: '0s' }}
-                      onClick={() => handleOpenPopup('SQL')}
-                    >
-                      Join Live Tests
-                    </CyberButton>
-                    
-                    <CyberButton 
-                      variant="primary" 
-                      size="sm"
-                      className="flex-1 max-w-[140px]"
-                      style={{ animationDelay: '0s' }}
-                      onClick={() => handleOpenPopup('Custom Test')}
-                    >
-                      Custom Test
-                    </CyberButton>
-                  </div>
-                  
-                  {/* Second row - Dashboard button (circular) */}
-                  <div className="flex justify-center">
-                    <CyberButton
-                      variant="secondary"
-                      size="md"
-                      className="
-                        !rounded-full
-                        !w-12 !h-12
-                        p-0
-                        shadow-cyan-400/40 hover:shadow-cyan-400/80 transition-shadow
-                        animate-spin-slow
-                        ring-2 ring-cyan-400/60 hover:ring-cyan-400/90
-                        relative
-                        group
-                      "
-                      style={{
-                        minWidth: '3rem',
-                        minHeight: '3rem',
-                        width: '3rem',
-                        height: '3rem',
-                        animationDelay: '0s'
-                      }}
-                      icon={
-                        <LayoutDashboard
-                          className="w-6 h-6 font-bold flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
-                          fill="currentColor"
-                          color="currentColor"
-                        />
-                      }
-                      onClick={() => handleOpenPopup('Dashboard')}
-                    >
-                    </CyberButton>
-                  </div>
-                  
-                  {/* Third row - Two buttons */}
-                  <div className="flex gap-4 justify-center">
-                    <CyberButton 
-                      variant="primary" 
-                      size="sm"
-                      className="flex-1 max-w-[140px]"
-                      style={{ animationDelay: '0s' }}
-                      onClick={() => handleOpenPopup('Mock Quiz')}
-                    >
-                      Mock Tests
-                    </CyberButton>
-                    
-                    <CyberButton 
-                      variant="primary" 
-                      size="sm"
-                      className="flex-1 max-w-[200px]"
-                      style={{ animationDelay: '0s' }}
-                      onClick={() => handleOpenPopup('Practice Question')}
-                    >
-                      Practice Question
-                    </CyberButton>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Chatbot Area */}
-              <div className="flex-shrink-0 mb-4">
-                <Chatbot />
-              </div>
+            </div>
+            
+            {/* Chatbot Area */}
+            <div className="flex-shrink-0 mb-4">
+              <Chatbot />
             </div>
           </div>
         ) : (
@@ -1081,15 +1116,9 @@ const Index = () => {
                     <div className="text-cyber-success font-mono text-xs mb-1.5 font-bold">● 3000+ Practice Questions</div>
                     <div className="text-[#ff00a6] font-mono text-xs mb-1.5 font-bold">● 30+ Mock Quizzes</div>
                     <div className="text-cyber-warning font-mono text-xs mb-1.5 font-bold">● 5+ Active Live Quiz</div>
-                    {/* <div className="flex justify-center space-x-2.5 text-xs font-mono">
-                      <div className="text-cyber-success">● PYTHON</div>
-                      <div className="text-cyber-success">● SQL</div>
-                      <div className="text-cyber-warning">● ADVANCED</div>
-                    </div> */}
                     <div className="mt-2.5">
                       <AnimatedBar percent={88} color="bg-primary" />
                     </div>
-                    {/* <div className="text-xs text-muted-foreground mt-1.5">NEURAL LINK STABILITY: 85%</div> */}
                   </div>
                 </div>
                 {/* SYSTEM STATUS Card */}

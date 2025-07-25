@@ -3,7 +3,6 @@ import CyberLoader from '@/components/CyberLoader';
 import ThreeBackground from '@/components/ThreeBackground';
 import CyberNav from '@/components/CyberNav';
 import CyberButton from '@/components/CyberButton';
-import HUDOverlay from '@/components/HUDOverlay';
 import SQLTerminal from '@/components/SQLTerminal';
 import DataVisualization from '@/components/DataVisualization';
 import { LayoutDashboard } from 'lucide-react';
@@ -13,7 +12,6 @@ import FuturisticGlitchPopup from '@/components/FuturisticGlitchPopup';
 import CyberCoreHUD from '@/components/CyberCoreHUD';
 import WorldMapHUD from '@/components/WorldMapHUD';
 import buttonClickSound from '../assets/mp3/button-click.mp3';
-import SoundManager from '@/components/SoundManager';
 import QuestionProgressCircle from '@/components/QuestionProgressCircle';
 
 // Custom hook to detect mobile devices
@@ -244,8 +242,8 @@ const Index = () => {
           <QuestionProgressCircle />
           <GlobeLottie style={{ 
             position: 'absolute', 
-            left: 20, 
-            bottom: 232, 
+            left: 28, 
+            bottom: 242, 
             width: 170, 
             height: 170, 
             zIndex: 30, 
@@ -284,33 +282,33 @@ const Index = () => {
       <div className="flex flex-col min-h-screen relative z-20">
         {/* Mobile Layout */}
         {isMobile ? (
-          <div className="flex flex-col min-h-screen p-4 pt-20">
+          <div className="flex flex-col min-h-[100dvh] p-4 pt-20">
             {/* Title Area */}
-            <div className="text-center mb-12">
+            <div className="text-center mb-20 pt-8">
               <div className="relative w-fit mx-auto">
                 <div className="absolute inset-0 animate-pulse-glow bg-cyan-400/20 blur-xl rounded-lg pointer-events-none"></div>
-                <h1 className="text-2xl sm:text-3xl font-black-ops-one font-bold text-primary mb-3">
+                <h1 className="text-3xl sm:text-4xl font-black-ops-one font-bold text-primary mb-3">
                   DATASENSE PRACTICE ARENA
                 </h1>
-                <p className="text-sm font-mono text-muted-foreground tracking-wider">
+                <p className="text-sm font-mono text-white ">
                   EMPOWERING DATA ENTHUSIASTS TO EXPERTISE
                 </p>
               </div>
             </div>
             
             {/* Button Area */}
-            <div className="flex-1 flex items-center justify-center mb-8">
+            <div className="flex-1 flex items-center justify-center mb-20">
               <div className="space-y-6">
                 {/* First row - Two buttons */}
                 <div className="flex gap-4 justify-center">
                   <CyberButton 
                     variant="primary" 
                     size="sm"
-                    className="flex-1 max-w-[140px]"
+                    className="flex-1 max-w-[200px]"
                     style={{ animationDelay: '0s' }}
                     onClick={() => handleOpenPopup('SQL')}
                   >
-                    JOIN LIVE QUIZZES
+                    Join Live Tests
                   </CyberButton>
                   
                   <CyberButton 
@@ -320,7 +318,7 @@ const Index = () => {
                     style={{ animationDelay: '0s' }}
                     onClick={() => handleOpenPopup('Custom Test')}
                   >
-                    CUSTOM TEST
+                    Custom Test
                   </CyberButton>
                 </div>
                 
@@ -367,17 +365,17 @@ const Index = () => {
                     style={{ animationDelay: '0s' }}
                     onClick={() => handleOpenPopup('Mock Quiz')}
                   >
-                    MOCK QUIZ
+                    Mock Tests
                   </CyberButton>
                   
                   <CyberButton 
                     variant="primary" 
                     size="sm"
-                    className="flex-1 max-w-[140px]"
+                    className="flex-1 max-w-[200px]"
                     style={{ animationDelay: '0s' }}
                     onClick={() => handleOpenPopup('Practice Question')}
                   >
-                    PRACTICE QUESTION
+                    Practice Question
                   </CyberButton>
                 </div>
               </div>
@@ -397,10 +395,10 @@ const Index = () => {
                 {/* Main Title */}
                 <div className="relative w-fit mx-auto">
                   <div className="absolute inset-0 animate-pulse-glow bg-cyan-400/20 blur-xl rounded-lg pointer-events-none"></div>
-                  <h1 className="text-3xl md:text-4xl font-black-ops-one font-bold text-primary mb-2.5">
+                  <h1 className="text-3xl md:text-5xl font-black-ops-one font-bold text-primary mb-2.5">
                     DATASENSE PRACTICE ARENA
                   </h1>
-                  <p className="text-sm md:text-base font-mono text-muted-foreground tracking-wider">
+                  <p className="text-sm md:text-base font-mono text-white tracking-wider">
                     EMPOWERING DATA ENTHUSIASTS TO EXPERTISE
                   </p>
                   <div className="w-28 h-px mx-auto mt-6" />
@@ -414,14 +412,14 @@ const Index = () => {
                       <CyberButton 
                         variant="primary" 
                         size="md"
-                        className="w-48"
+                        className="w-52"
                         style={{ animationDelay: '0s' }}
                         onClick={() => handleOpenPopup('SQL')}
                       >
-                        JOIN LIVE QUIZZES
+                        Join Live Tests
                       </CyberButton>
                       <div className="text-xs font-mono text-muted-foreground mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        REAL-TIME NEURAL CHALLENGES
+                        Real-Time Challenges
                       </div>
                     </div>
                     {/* Dashboard */}
@@ -457,7 +455,7 @@ const Index = () => {
                       >
                       </CyberButton>
                       <div className="text-xs font-mono text-muted-foreground mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        NEURAL DASHBOARD ACCESS
+                        Neural Dashboard
                       </div>
                     </div>
                     {/* Custom Test */}
@@ -465,14 +463,14 @@ const Index = () => {
                       <CyberButton 
                         variant="primary" 
                         size="md"
-                        className="w-48"
+                        className="w-52"
                         style={{ animationDelay: '0s' }}
                         onClick={() => handleOpenPopup('Custom Test')}
                       >
-                        CUSTOM TEST
+                        Custom Test
                       </CyberButton>
                       <div className="text-xs font-mono text-muted-foreground mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        PERSONALIZED TRAINING PROTOCOLS
+                        Personalized Training Protocols
                       </div>
                     </div>
                   </div>
@@ -481,21 +479,21 @@ const Index = () => {
                     <CyberButton 
                       variant="primary" 
                       size="md"
-                      className="w-48"
+                      className="w-52"
                       style={{ animationDelay: '0s' }}
                       onClick={() => handleOpenPopup('Mock Quiz')}
                     >
-                      MOCK QUIZ
+                      Mock Tests
                     </CyberButton>
                     
                     <CyberButton 
                       variant="primary" 
                       size="md"
-                      className="w-48"
+                      className="w-52"
                       style={{ animationDelay: '0s' }}
                       onClick={() => handleOpenPopup('Practice Question')}
                     >
-                      PRACTICE QUESTION
+                      Practice Questions
                     </CyberButton>
                   </div>
                   <div className="w-28 h-px mx-auto mt-6" />
@@ -513,17 +511,19 @@ const Index = () => {
               <div className="flex justify-center gap-2.5 max-w-3xl mx-auto px-3">
                 {/* TRAINING MATRIX STATUS Card */}
                 <div className="hud-overlay border border-primary/30 p-3 w-56">
-                  <div className="text-center">
-                    <div className="text-primary font-mono text-xs mb-1.5 font-bold">TRAINING MATRIX STATUS</div>
-                    <div className="flex justify-center space-x-2.5 text-xs font-mono">
+                  <div className="text-left">
+                    <div className="text-cyber-success font-mono text-xs mb-1.5 font-bold">● 3000+ Practice Questions</div>
+                    <div className="text-[#ff00a6] font-mono text-xs mb-1.5 font-bold">● 30+ Mock Quizzes</div>
+                    <div className="text-cyber-warning font-mono text-xs mb-1.5 font-bold">● 5+ Active Live Quiz</div>
+                    {/* <div className="flex justify-center space-x-2.5 text-xs font-mono">
                       <div className="text-cyber-success">● PYTHON</div>
                       <div className="text-cyber-success">● SQL</div>
                       <div className="text-cyber-warning">● ADVANCED</div>
-                    </div>
+                    </div> */}
                     <div className="mt-2.5">
                       <AnimatedBar percent={88} color="bg-primary" />
                     </div>
-                    <div className="text-xs text-muted-foreground mt-1.5">NEURAL LINK STABILITY: 85%</div>
+                    {/* <div className="text-xs text-muted-foreground mt-1.5">NEURAL LINK STABILITY: 85%</div> */}
                   </div>
                 </div>
                 {/* SYSTEM STATUS Card */}

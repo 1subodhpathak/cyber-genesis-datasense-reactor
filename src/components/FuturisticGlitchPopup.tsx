@@ -53,41 +53,41 @@ const FuturisticGlitchPopup = ({ open, onClose, badgeType, description, yesLink 
   if (!show) return null;
 
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-400 ${open ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-400 px-4 py-4 ${open ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
          onClick={onClose}>
       {/* <audio ref={audioRef} src={glitchSound} preload="auto" /> */}
       <div onClick={e => e.stopPropagation()}>
         <audio ref={buttonClickRef} src={buttonClickSound} preload="auto" />
-        <HolographicPanel className={`w-[800px] max-w-[90vw] min-h-[400px] p-12 relative animate-glitch-popup`}>
-          <GlitchText triggerGlitch={triggerGlitch} className="text-4xl font-bold text-cyan-300 text-center mb-8 select-none">
+        <HolographicPanel className={`w-full max-w-2xl min-h-[320px] sm:min-h-[400px] p-4 sm:p-8 lg:p-12 relative animate-glitch-popup`}>
+          <GlitchText triggerGlitch={triggerGlitch} className="text-2xl sm:text-3xl lg:text-4xl font-bold text-cyan-300 text-center mb-4 sm:mb-6 lg:mb-8 select-none">
             {`Let's Get Started`}
           </GlitchText>
-          <div className="text-center text-white text-xl font-mono mb-12 leading-relaxed px-4">
+          <div className="text-center text-white text-base sm:text-lg lg:text-xl font-mono mb-6 sm:mb-8 lg:mb-12 leading-relaxed px-2 sm:px-4">
             {description}
           </div>
-          <div className="flex justify-center gap-12 mb-8 flex-wrap">
-              <div className="group">
-                <CyberButton 
-                  variant="primary" 
-                  size="lg"
-                  className="animate-float w-64"
-                  style={{ animationDelay: '0s' }}
-                  onClick={handleYes}
-                >
-                  Yes
-                </CyberButton>
-              </div>
-              <div className="group">
-                <CyberButton 
-                  variant="primary" 
-                  size="lg"
-                  className="animate-float w-64"
-                  style={{ animationDelay: '0s' }}
-                  onClick={handleNo}
-                >
-                  No
-                </CyberButton>
-              </div>
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 lg:gap-12 mb-4 sm:mb-6 lg:mb-8">
+            <div className="group">
+              <CyberButton 
+                variant="primary" 
+                size="lg"
+                className="animate-float w-full sm:w-48 lg:w-64"
+                style={{ animationDelay: '0s' }}
+                onClick={handleYes}
+              >
+                Yes
+              </CyberButton>
+            </div>
+            <div className="group">
+              <CyberButton 
+                variant="primary" 
+                size="lg"
+                className="animate-float w-full sm:w-48 lg:w-64"
+                style={{ animationDelay: '0s' }}
+                onClick={handleNo}
+              >
+                No
+              </CyberButton>
+            </div>
           </div>
         </HolographicPanel>
       </div>

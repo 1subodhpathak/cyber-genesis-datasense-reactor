@@ -10,7 +10,7 @@ interface SoundManagerProps {
   children?: React.ReactNode;
 }
 const SoundManager: React.FC<SoundManagerProps> = ({ children }) => {
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef(null);
   const clickAudioRef = useRef(null);
 

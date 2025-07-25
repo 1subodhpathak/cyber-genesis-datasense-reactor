@@ -1,112 +1,23 @@
-// import { useState } from 'react';
-// import CyberButton from './CyberButton';
-// import { Bell, Users } from 'lucide-react';
-// import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
-// import SoundManager from './SoundManager';
-
-
-// const socialLinks = [
-//   { icon: <img src="assets/python.png" alt="YouTube" />, url: "https://youtube.com" },
-//   { icon: <img src="assets/python.png" alt="LinkedIn" />, url: "https://linkedin.com" },
-//   { icon: <img src="assets/python.png" alt="Facebook" />, url: "https://facebook.com" },
-//   { icon: <img src="assets/python.png" alt="Instagram" />, url: "https://instagram.com" },
-//   { icon: <img src="assets/python.png" alt="WhatsApp" />, url: "https://whatsapp.com" },
-// ];
-
-// const CyberNav = () => {
-//   const { isSignedIn } = useUser();
-//   const [showSocial, setShowSocial] = useState(false);
-
-//   return (
-//     <nav className="absolute top-0 left-0 right-0 z-40 pt-6">
-//       <div className="flex justify-between items-center">
-//         {/* Logo */}
-//         <div className="group">
-//           <img src="assets/logo.png" alt="DATASENSE" className="h-8 md:h-10 rounded-lg shadow-lg" />
-//           {/* <h1 className="text-2xl font-cyber font-bold text-primary glitch-text cyber-glow" data-text="DATASENSE">
-//             DATASENSE
-//           </h1> */}
-//           <div className="h-0.5 bg-primary/50 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-//         </div>
-
-//         {/* Right side: Auth button + SoundManager */}
-//         <div className="flex items-center gap-4">
-//           <div
-//             className="relative group"
-//             onMouseEnter={() => setShowSocial(true)}
-//             onMouseLeave={() => setShowSocial(false)}
-//           >
-//             <button className="relative w-12 h-12 bg-gray-800/50 backdrop-blur-lg rounded-full border border-cyan-400/30 flex items-center justify-center hover:bg-cyan-400/10 transition-all duration-300 group">
-//               <Bell className="w-6 h-6 text-cyan-400 group-hover:animate-pulse" />
-//               {/* Notification dot */}
-//               <div className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full" />
-//             </button>
-//             {/* Social buttons */}
-//             {showSocial && (
-//             <div className="absolute left-1/5 top-1/3 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-//               {socialLinks.map((link, i) => {
-//                 // Semi-circle: angles from 180deg (π) to 360deg (2π)
-//                 const startAngle = Math.PI; // 180deg
-//                 const endAngle = 2 * Math.PI; // 360deg
-//                 const angle = startAngle + (i / (socialLinks.length - 1)) * (endAngle - startAngle);
-//                 const radius = 60; // px, adjust as needed
-//                 const x = Math.cos(angle) * radius;
-//                 const y = Math.sin(angle) * radius;
-//                 return (
-//                   <a
-//                     key={i}
-//                     href={link.url}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                     className="absolute transition-all duration-300 pointer-events-auto"
-//                     style={{
-//                       left: `calc(50% + ${x}px)`,
-//                       top: `calc(50% + ${y}px)`,
-//                     }}
-//                   >
-//                     <div className="w-10 h-10 rounded-full bg-black/80 flex items-center justify-center border border-cyan-400 hover:scale-110">
-//                       {link.icon}
-//                     </div>
-//                   </a>
-//                 );
-//               })}
-//             </div>
-//           )}
-//           </div>
-//           {isSignedIn ? (
-//             <UserButton />
-//           ) : (
-//             <SignInButton>
-//               <CyberButton 
-//                 variant="outline" 
-//                 size="sm"
-//                 icon={<Users className="w-4 h-4" />}
-//               >
-//                 Sign In
-//               </CyberButton>
-//             </SignInButton>
-//           )}
-//           <SoundManager />
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default CyberNav;
-
-import { useState } from 'react';
+import React ,{ useState } from 'react';
 import CyberButton from './CyberButton';
 import { Bell, Users } from 'lucide-react';
 import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 import SoundManager from './SoundManager';
+import {
+  FaYoutube,
+  FaLinkedin,
+  FaInstagram,
+  FaWhatsapp,
+  FaFacebook
+} from "react-icons/fa";
+// import { title } from 'process';
 
 const socialLinks = [
-  { icon: <img src="assets/python.png" alt="YouTube" />, url: "https://youtube.com" },
-  { icon: <img src="assets/python.png" alt="LinkedIn" />, url: "https://linkedin.com" },
-  { icon: <img src="assets/python.png" alt="Facebook" />, url: "https://facebook.com" },
-  { icon: <img src="assets/python.png" alt="Instagram" />, url: "https://instagram.com" },
-  { icon: <img src="assets/python.png" alt="WhatsApp" />, url: "https://whatsapp.com" },
+  { icon: FaYoutube, title: "Youtube", url: "https://youtube.com" },
+  { icon: FaLinkedin, title: "LinkedIn", url: "https://linkedin.com" },
+  { icon: FaFacebook, title: "Facebook", url: "https://facebook.com" },
+  { icon: FaInstagram, title: "Instagram", url: "https://instagram.com" },
+  { icon: FaWhatsapp, title: "WhatsApp", url: "https://whatsapp.com" },
 ];
 
 const CyberNav = () => {
@@ -178,7 +89,7 @@ const CyberNav = () => {
                       >
                         {/* Icon */}
                         <div className="w-6 h-6 transition-transform duration-200 group-hover/social:scale-105">
-                          {link.icon}
+                          {React.createElement(link.icon, { color: "#00fff7", size: 24 })}
                         </div>
                         
                         {/* Subtle hover glow */}

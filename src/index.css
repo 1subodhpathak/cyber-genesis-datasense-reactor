@@ -76,6 +76,8 @@
   /* Dark mode inherits the cyberpunk theme */
 }
 
+
+
 @layer base {
   * {
     @apply border-border;
@@ -350,4 +352,17 @@
 #chatbot-messages {
   scrollbar-width: thin;
   scrollbar-color: #00fff7 #0a1a22;
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+.animate-spin-slow {
+  animation: spin-slow 4s linear infinite;
+}
+
+/* src/index.css or src/App.css */
+.font-black-ops-one {
+  font-family: 'Black Ops One', system-ui, sans-serif;
 }

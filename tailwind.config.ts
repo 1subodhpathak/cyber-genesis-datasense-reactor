@@ -21,6 +21,7 @@ export default {
 			fontFamily: {
 				'cyber': ['Orbitron', 'sans-serif'],
 				'mono': ['JetBrains Mono', 'monospace'],
+				'game':['Black Ops One', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

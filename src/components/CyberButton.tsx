@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 
 interface CyberButtonProps {
   children?: ReactNode;
@@ -13,22 +13,43 @@ interface CyberButtonProps {
   type?: 'button' | 'submit' | 'reset';
 }
 
-const CyberButton = ({ 
-  children, 
-  variant = 'primary', 
-  size = 'md', 
+const CyberButton = ({
+  children,
+  variant = 'primary',
+  size = 'md',
   className,
   onClick,
   icon,
   type,
   style
 }: CyberButtonProps) => {
+  const colors = ['#1FC4D6', '#FFFFFF'];
+  const [bgIndex, setBgIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (!isHovered) {
+      const interval = setInterval(() => {
+        setBgIndex((prev) => (prev === 0 ? 1 : 0));
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [isHovered]);
+
+  // Set fixed background color on hover for primary/secondary
+  let backgroundColor = colors[bgIndex];
+  if (isHovered) {
+    if (variant === 'primary') backgroundColor = '#1FC4D6';
+    if (variant === 'secondary') backgroundColor = '#FFFFFF';
+    if (variant === 'outline') backgroundColor = '#1FC4D6';
+  }
+
   const baseClasses = "relative overflow-hidden font-mono font-bold tracking-wider transition-all duration-300 group";
-  
+
   const variantClasses = {
-    primary: "bg-[#1FC4D6] border-2 border-primary text-white hover:bg-primary hover:text-background cyber-glow",
-    secondary: "bg-[#1FC4D6] border-2 border-accent text-white hover:bg-accent hover:text-background",
-    outline: "bg-[#1FC4D6] border border-muted-foreground text-white hover:border-primary hover:text-primary"
+    primary: `border-2 border-primary text-black hover:bg-primary hover:text-background cyber-glow`,
+    secondary: `border-2 border-accent text-black hover:bg-accent hover:text-background cyber-glow`,
+    outline: `bg-[#1FC4D6] border border-muted-foreground text-black hover:border-primary hover:text-background cyber-glow`
   };
 
   const sizeClasses = {
@@ -40,29 +61,32 @@ const CyberButton = ({
   return (
     <Button
       onClick={onClick}
-      style={style}
+      style={{ ...style, backgroundColor }}
       className={cn(
         baseClasses,
         variantClasses[variant],
         sizeClasses[size],
         className
       )}
+      type={type}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Scan line effect */}
       <div className="absolute inset-0 scan-line opacity-0 group-hover:opacity-100" />
-      
+
       {/* Corner decorations */}
       <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-current opacity-50 group-hover:opacity-100 transition-opacity" />
       <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-current opacity-50 group-hover:opacity-100 transition-opacity" />
       <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-current opacity-50 group-hover:opacity-100 transition-opacity" />
       <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-current opacity-50 group-hover:opacity-100 transition-opacity" />
-      
+
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center gap-2">
-        {icon && <div className="w-5 h-5">{icon}</div>}
+        {icon && <span className="flex items-center justify-center w-full h-full">{icon}</span>}
         {children}
       </div>
-      
+
       {/* Glow effect on hover */}
       <div className="absolute inset-0 bg-current opacity-0 group-hover:opacity-10 transition-opacity blur-sm" />
     </Button>

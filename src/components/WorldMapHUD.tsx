@@ -6,7 +6,7 @@ const defaultStyle: React.CSSProperties = {
   position: 'fixed',
   // left: 32,
   // bottom: 32,
-  width: 260,
+  width: 230,
   height: 120,
   zIndex: 40,
   pointerEvents: 'none',

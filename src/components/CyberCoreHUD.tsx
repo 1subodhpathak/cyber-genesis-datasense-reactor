@@ -11,7 +11,7 @@ const CyberCoreHUD = ({ style }) => {
     let width = 200, height = 200;
     let dpr = window.devicePixelRatio || 1;
     function resize() {
-      width = 200; height = 200;
+      width = 180; height = 180;
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       canvas.style.width = width + 'px';

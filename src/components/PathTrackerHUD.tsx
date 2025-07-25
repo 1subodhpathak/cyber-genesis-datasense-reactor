@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
-const GRID_SIZE = 200;
-const GRID_DIVS = 8;
+const GRID_SIZE = 220;
+const GRID_DIVS = 10;
 const PATH_POINTS = [
   [10, 180], [40, 120], [80, 160], [120, 60], [160, 100], [190, 30],
 ];
@@ -76,7 +76,7 @@ const PathTrackerHUD: React.FC<{ style?: React.CSSProperties }> = ({ style }) =>
       style={{
         position: 'fixed',
         right:12,
-        bottom: 150,
+        bottom: 145,
         width: GRID_SIZE + 16,
         height: GRID_SIZE + 14,
         zIndex: 50,
@@ -86,7 +86,7 @@ const PathTrackerHUD: React.FC<{ style?: React.CSSProperties }> = ({ style }) =>
       className="select-none"
     >
       <div
-        className="hud-overlay border border-0 shadow-xl p-2 bg-transparent"
+        className="hud-overlay border-0 shadow-xl p-2 bg-transparent"
         style={{ width: GRID_SIZE + 16, height: GRID_SIZE + 32 }}
       >
         <svg width={GRID_SIZE} height={GRID_SIZE} style={{ display: 'block', margin: '0 auto' }}>

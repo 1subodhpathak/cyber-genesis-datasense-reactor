@@ -279,7 +279,7 @@ const Index = () => {
       
       {/* Main Content */}
       <audio ref={buttonclickRef} src={buttonClickSound} preload="auto" />
-      <div className="flex flex-col min-h-screen relative z-20">
+      <div className="flex flex-col min-h-[100dvh] relative overflow-auto">
         {/* Mobile Layout */}
         {isMobile ? (
           <div className="flex flex-col min-h-[100dvh] p-4 pt-20">
@@ -510,7 +510,7 @@ const Index = () => {
             <div className="flex-shrink-0 pb-6">
               <div className="flex justify-center gap-2.5 max-w-3xl mx-auto px-3">
                 {/* TRAINING MATRIX STATUS Card */}
-                <div className="hud-overlay border border-primary/30 p-3 w-56">
+                <div className="hud-overlay border border-primary/30 p-3 w-60">
                   <div className="text-left">
                     <div className="text-cyber-success font-mono text-xs mb-1.5 font-bold">● 3000+ Practice Questions</div>
                     <div className="text-[#ff00a6] font-mono text-xs mb-1.5 font-bold">● 30+ Mock Quizzes</div>
@@ -527,7 +527,7 @@ const Index = () => {
                   </div>
                 </div>
                 {/* SYSTEM STATUS Card */}
-                <div className="hud-overlay border border-primary/30 p-3 w-56">
+                <div className="hud-overlay border border-primary/30 p-3 w-60">
                   <div className="text-center">
                     <div className="text-primary font-mono text-xs mb-1.5 font-bold">SYSTEM STATUS</div>
                     <div className="flex flex-col items-center space-y-1 text-xs font-mono">

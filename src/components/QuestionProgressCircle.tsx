@@ -91,7 +91,7 @@ function AnimatedCircle({
 
 const QuestionProgressCircle = () => (
   <div
-    className="fixed z-20"
+    className="fixed z-50"
     style={{
       right: 18,
       top: 'calc(50% - 120px)', // Position below DataVisualization
@@ -114,7 +114,7 @@ const QuestionProgressCircle = () => (
     <AnimatedCircle
       solved={SOLVED_SQL}
       total={TOTAL_SQL}
-      color="#ff00a6"
+      color="#00ff00"
       label="SQL"
     />
   </div>

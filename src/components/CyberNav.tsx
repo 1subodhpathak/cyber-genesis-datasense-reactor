@@ -10,23 +10,33 @@ import {
   FaWhatsapp,
   FaFacebook
 } from "react-icons/fa";
+import buttonClickSound from '../assets/mp3/button-click.mp3';
+import { on } from 'events';
 
 const socialLinks = [
-  { icon: FaYoutube, title: "Youtube", url: "https://youtube.com" },
-  { icon: FaLinkedin, title: "LinkedIn", url: "https://linkedin.com" },
-  { icon: FaFacebook, title: "Facebook", url: "https://facebook.com" },
-  { icon: FaInstagram, title: "Instagram", url: "https://instagram.com" },
-  { icon: FaWhatsapp, title: "WhatsApp", url: "https://whatsapp.com" },
+  { icon: FaYoutube, title: "Youtube", url: "https://www.youtube.com/@Senseofdata" },
+  { icon: FaLinkedin, title: "LinkedIn", url: "https://www.linkedin.com/company/data-sense-lms/" },
+  { icon: FaFacebook, title: "Facebook", url: "https://www.facebook.com/people/Data-Sense/61550202884240/?mibextid=LQQJ4d" },
+  { icon: FaInstagram, title: "Instagram", url: "https://www.instagram.com/senseofdata/" },
+  { icon: FaWhatsapp, title: "WhatsApp", url: "https://chat.whatsapp.com/DYgDxOA8nBvJp4tPz5J6ox" },
 ];
 
 const CyberNav = () => {
   const { isSignedIn } = useUser();
   const [showSocial, setShowSocial] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const buttonclickRef = React.useRef(null);
 
   const handleMouseEnter = () => {
     setShowSocial(true);
     setIsAnimating(true);
+  };
+
+  const handleClick = () => {
+    if (buttonclickRef.current) {
+      buttonclickRef.current.currentTime = 0;
+      buttonclickRef.current.play();
+    }
   };
 
   const handleMouseLeave = () => {
@@ -36,8 +46,9 @@ const CyberNav = () => {
   };
 
   return (
-    <nav className="absolute top-0 left-0 right-0 z-40 pt-3">
+    <nav className="absolute top-0 left-0 right-0 z-40 pt-3 p-6">
       <div className="flex justify-between items-center">
+        <audio ref={buttonclickRef} src={buttonClickSound} preload="auto" />
         {/* Logo */}
         <div className="group">
           <img src="assets/logo.png" alt="DATASENSE" className="h-7 md:h-9 rounded-lg shadow-lg" />
@@ -46,6 +57,31 @@ const CyberNav = () => {
 
         {/* Right side: Auth button + SoundManager */}
         <div className="flex items-center gap-4">
+          {/* Show links only when signed in */}
+          {isSignedIn && (
+            <div className="flex items-center gap-4 mr-4">
+              <a
+                href="#"
+                onClick={handleClick}
+                className="relative text-cyan-300 hover:text-cyan-100 font-mono text-md transition-colors duration-200
+                  after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-0.5 after:bg-cyan-300 after:transition-all after:duration-300 hover:after:w-full"
+                // TODO: Replace '#' with your actual link
+              >
+                Our Resources
+              </a>
+              <span className="text-cyan-400/60 mx-1 select-none text-lg font-bold">|</span>
+              <a
+                href="#"
+                onClick={handleClick}
+                className="relative text-cyan-300 hover:text-cyan-100 font-mono text-md transition-colors duration-200
+                  after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-0.5 after:bg-cyan-300 after:transition-all after:duration-300 hover:after:w-full"
+                // TODO: Replace '#' with your actual link
+              >
+                Learn SQL
+              </a>
+            </div>
+          )}
+
           <div
             className="relative group"
             onMouseEnter={handleMouseEnter}
@@ -85,6 +121,7 @@ const CyberNav = () => {
                           opacity: isAnimating ? 1 : 0,
                           transition: `all 0.3s ease-out ${i * 80}ms`
                         }}
+                        onClick={handleClick}
                       >
                         {/* Icon */}
                         <div className="w-6 h-6 transition-transform duration-200 group-hover/social:scale-105">

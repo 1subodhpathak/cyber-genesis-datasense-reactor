@@ -32,36 +32,150 @@ const useIsMobile = () => {
 };
 
 // AnimatedBar component for smooth progress animation
-const AnimatedBar = ({ percent, color }: { percent: number; color: string }) => {
+// const AnimatedBar = ({ percent, color }: { percent: number; color: string }) => {
+//   const [progress, setProgress] = useState(0);
+
+//   useEffect(() => {
+//     let start: number | null = null;
+//     let animationFrame: number;
+
+//     const duration = 900; // ms, adjust for speed
+//     const animate = (timestamp: number) => {
+//       if (!start) start = timestamp;
+//       const elapsed = timestamp - start;
+//       const nextProgress = Math.min(percent, Math.round((elapsed / duration) * percent));
+//       setProgress(nextProgress);
+//       if (nextProgress < percent) {
+//         animationFrame = requestAnimationFrame(animate);
+//       }
+//     };
+//     animationFrame = requestAnimationFrame(animate);
+
+//     return () => cancelAnimationFrame(animationFrame);
+//   }, [percent]);
+
+//   return (
+//     <div className="w-full bg-muted h-1 rounded">
+//       <div
+//         className={`${color} h-1 rounded animate-pulse`}
+//         style={{ width: `${progress}%`, transition: 'width 0.1s linear' }}
+//       />
+//     </div>
+//   );
+// };
+
+const AnimatedBar = ({ color }: { color: string }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    let start: number | null = null;
     let animationFrame: number;
+    let startTime: number | null = null;
+    const duration = 3000; // 3 seconds for a complete cycle (0 to 100)
 
-    const duration = 900; // ms, adjust for speed
     const animate = (timestamp: number) => {
-      if (!start) start = timestamp;
-      const elapsed = timestamp - start;
-      const nextProgress = Math.min(percent, Math.round((elapsed / duration) * percent));
-      setProgress(nextProgress);
-      if (nextProgress < percent) {
-        animationFrame = requestAnimationFrame(animate);
-      }
+      if (!startTime) startTime = timestamp;
+      
+      const elapsed = (timestamp - startTime) % duration;
+      const progress = elapsed / duration; // 0 to 1
+      
+      // Ease-in-out function for smooth start and end
+      const easeInOut = (t: number) => {
+        return t < 0.5 
+          ? 2 * t * t 
+          : -1 + (4 - 2 * t) * t;
+      };
+      
+      const easedProgress = easeInOut(progress);
+      const currentPercent = Math.round(easedProgress * 100);
+      
+      setProgress(currentPercent);
+      
+      // Continue the animation indefinitely
+      animationFrame = requestAnimationFrame(animate);
     };
+
     animationFrame = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrame);
-  }, [percent]);
+  }, []);
 
   return (
-    <div className="w-full bg-muted h-1 rounded">
+    <div className="w-full bg-muted h-1 rounded overflow-hidden">
       <div
-        className={`${color} h-1 rounded animate-pulse`}
-        style={{ width: `${progress}%`, transition: 'width 0.1s linear' }}
+        className={`${color} h-1 rounded transition-all duration-75 ease-linear`}
+        style={{ width: `${progress}%` }}
       />
     </div>
   );
+};
+// Rotating Subheading Component
+const RotatingSubheading = () => {
+  const subheadings = [
+    'EMPOWERING DATA ENTHUSIASTS TO EXPERTISE',
+    'THE ULTIMATE SQL PRACTICE PLATFORM FOR HANDS-ON LEARNING',
+    'SQL MASTERY THROUGH REAL-WORLD CASE STUDIES',
+    'GET INTERVIEW-READY WITH TARGETED SQL PRACTICE',
+    'YOUR PERSONAL SQL SANDBOX — LEARN BY DOING',
+    'NOT JUST THEORY — IT’S EXECUTION THAT MATTERS'
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isBlinking, setIsBlinking] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsBlinking(true);
+      
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % subheadings.length);
+        setIsBlinking(false);
+      }, 300); // Blink duration
+    }, 3000); // Change every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <p className={`text-sm md:text-base font-mono text-white tracking-wider transition-opacity duration-300 ${isBlinking ? 'opacity-0' : 'opacity-100'}`}>
+      {subheadings[currentIndex]}
+    </p>
+  );
+};
+
+// Animated User Counter Component
+const AnimatedUserCounter = () => {
+  const [count, setCount] = useState(0);
+  const targetCount = useRef(0);
+
+  useEffect(() => {
+    // Generate random number between 1200-1300 on component mount
+    targetCount.current = Math.floor(Math.random() * 101) + 1200; // 1200 to 1300
+    
+    let start: number | null = null;
+    let animationFrame: number;
+    const duration = 2000; // 2 seconds animation
+
+    const animate = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const elapsed = timestamp - start;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(easeOutQuart * targetCount.current);
+      
+      setCount(currentCount);
+      
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
+
+  return <span>{count}</span>;
 };
 
 const Chatbot = () => {
@@ -122,13 +236,13 @@ const Chatbot = () => {
             >
               {!msg.isUser && (
                 <div className="mr-1.5 flex-shrink-0">
-                  <span className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-cyan-400/80 shadow-lg flex items-center justify-center animate-bounce text-xs">
+                  <span className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-cyan-400/80 shadow-lg flex items-left justify-center animate-bounce text-xs">
                     🤖
                   </span>
                 </div>
               )}
               <div
-                className={`px-2 py-1 md:px-2.5 md:py-1.5 rounded-md max-w-[70%] transition-all duration-300 text-xs
+                className={`px-2 py-1 md:px-2.5 md:py-1.5 rounded-md max-w-[70%] transition-all duration-300 text-xs text-left
                   ${msg.isUser
                     ? 'bg-cyan-500/20 text-cyan-100 border border-cyan-400/40 animate-fade-in-right'
                     : 'bg-cyan-400/10 text-cyan-200 border border-cyan-400/30 animate-fade-in-left'
@@ -181,9 +295,15 @@ const Index = () => {
   const [popupDesc, setPopupDesc] = useState('');
   const [popupLink, setPopupLink] = useState('');
   const isMobile = useIsMobile();
+  const [time, setTime] = useState(new Date());
 
   const buttonclickRef = useRef<HTMLAudioElement | null>(null);
 
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+  
   const playButtonClick = () => {
     if (buttonclickRef.current) {
       buttonclickRef.current.currentTime = 0;
@@ -243,7 +363,7 @@ const Index = () => {
           <GlobeLottie style={{ 
             position: 'absolute', 
             left: 28, 
-            bottom: 242, 
+            bottom: 262, 
             width: 170, 
             height: 170, 
             zIndex: 30, 
@@ -286,13 +406,11 @@ const Index = () => {
             {/* Title Area */}
             <div className="text-center mb-20 pt-8">
               <div className="relative w-fit mx-auto">
-                <div className="absolute inset-0 animate-pulse-glow bg-cyan-400/20 blur-xl rounded-lg pointer-events-none"></div>
+                <div className="absolute inset-0 blur-xl rounded-lg pointer-events-none"></div>
                 <h1 className="text-3xl sm:text-4xl font-black-ops-one font-bold text-primary mb-3">
                   DATASENSE PRACTICE ARENA
                 </h1>
-                <p className="text-sm font-mono text-white ">
-                  EMPOWERING DATA ENTHUSIASTS TO EXPERTISE
-                </p>
+                <RotatingSubheading />
               </div>
             </div>
             
@@ -394,13 +512,11 @@ const Index = () => {
               <div className="text-center space-y-5 max-w-5xl mx-auto px-0">
                 {/* Main Title */}
                 <div className="relative w-fit mx-auto">
-                  <div className="absolute inset-0 animate-pulse-glow bg-cyan-400/20 blur-xl rounded-lg pointer-events-none"></div>
+                  <div className="absolute inset-0 blur-xl rounded-lg pointer-events-none"></div>
                   <h1 className="text-3xl md:text-5xl font-black-ops-one font-bold text-primary mb-2.5">
                     DATASENSE PRACTICE ARENA
                   </h1>
-                  <p className="text-sm md:text-base font-mono text-white tracking-wider">
-                    EMPOWERING DATA ENTHUSIASTS TO EXPERTISE
-                  </p>
+                  <RotatingSubheading />
                   <div className="w-28 h-px mx-auto mt-6" />
                 </div>
                 
@@ -412,14 +528,14 @@ const Index = () => {
                       <CyberButton 
                         variant="primary" 
                         size="md"
-                        className="w-52"
+                        className="w-56"
                         style={{ animationDelay: '0s' }}
                         onClick={() => handleOpenPopup('SQL')}
                       >
-                        Join Live Tests
+                        Practice Questions
                       </CyberButton>
                       <div className="text-xs font-mono text-muted-foreground mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        Real-Time Challenges
+                        Personalized Training Protocols
                       </div>
                     </div>
                     {/* Dashboard */}
@@ -463,14 +579,14 @@ const Index = () => {
                       <CyberButton 
                         variant="primary" 
                         size="md"
-                        className="w-52"
+                        className="w-56"
                         style={{ animationDelay: '0s' }}
                         onClick={() => handleOpenPopup('Custom Test')}
                       >
-                        Custom Test
+                        Join Live Tests
                       </CyberButton>
                       <div className="text-xs font-mono text-muted-foreground mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        Personalized Training Protocols
+                        Real-Time Challenges
                       </div>
                     </div>
                   </div>
@@ -479,7 +595,7 @@ const Index = () => {
                     <CyberButton 
                       variant="primary" 
                       size="md"
-                      className="w-52"
+                      className="w-48"
                       style={{ animationDelay: '0s' }}
                       onClick={() => handleOpenPopup('Mock Quiz')}
                     >
@@ -489,11 +605,11 @@ const Index = () => {
                     <CyberButton 
                       variant="primary" 
                       size="md"
-                      className="w-52"
+                      className="w-48"
                       style={{ animationDelay: '0s' }}
                       onClick={() => handleOpenPopup('Practice Question')}
                     >
-                      Practice Questions
+                      Custom Test
                     </CyberButton>
                   </div>
                   <div className="w-28 h-px mx-auto mt-6" />
@@ -513,27 +629,30 @@ const Index = () => {
                 <div className="hud-overlay border border-primary/30 p-3 w-60">
                   <div className="text-left">
                     <div className="text-cyber-success font-mono text-xs mb-1.5 font-bold">● 3000+ Practice Questions</div>
-                    <div className="text-[#ff00a6] font-mono text-xs mb-1.5 font-bold">● 30+ Mock Quizzes</div>
+                    <div className="text-primary font-mono text-xs mb-1.5 font-bold">● 30+ Mock Quizzes</div>
                     <div className="text-cyber-warning font-mono text-xs mb-1.5 font-bold">● 5+ Active Live Quiz</div>
-                    {/* <div className="flex justify-center space-x-2.5 text-xs font-mono">
-                      <div className="text-cyber-success">● PYTHON</div>
-                      <div className="text-cyber-success">● SQL</div>
-                      <div className="text-cyber-warning">● ADVANCED</div>
-                    </div> */}
                     <div className="mt-2.5">
-                      <AnimatedBar percent={88} color="bg-primary" />
+                      <AnimatedBar  color="bg-primary" />
                     </div>
-                    {/* <div className="text-xs text-muted-foreground mt-1.5">NEURAL LINK STABILITY: 85%</div> */}
+                  </div>
+                </div>
+                <div className="hud-overlay border border-primary/30 p-3 w-60">
+                  <div className="text-left">
+                    <div className="text-primary font-mono text-xs mb-1.5 font-bold">● SYSTEM TIME : {time.toLocaleTimeString()}</div>
+                    <div className="text-cyber-warning font-mono text-xs mb-1.5 font-bold">● ACTIVE USERS: <AnimatedUserCounter /></div>
+                    <div className="text-cyber-success font-mono text-xs mb-1.5 font-bold">● ALL SYSTEMS NOMINAL</div>
+                    <div className="mt-2.5">
+                      <AnimatedBar color="bg-primary" />
+                    </div>
                   </div>
                 </div>
                 {/* SYSTEM STATUS Card */}
-                <div className="hud-overlay border border-primary/30 p-3 w-60">
+                {/* <div className="hud-overlay border border-primary/30 p-3 w-60">
                   <div className="text-center">
                     <div className="text-primary font-mono text-xs mb-1.5 font-bold">SYSTEM STATUS</div>
                     <div className="flex flex-col items-center space-y-1 text-xs font-mono">
-                      <div>
-                        <span className="text-cyber-success">● {new Date().toLocaleTimeString()}</span>
-                        <span className="ml-2 text-cyber-warning">● ACTIVE: {1247}</span>
+                      <div className="text-left">
+                        <span className="ml-2 text-cyber-success">● ACTIVE USERS: <AnimatedUserCounter /></span>
                       </div>
                     </div>
                     <div className="mt-2.5">
@@ -541,7 +660,7 @@ const Index = () => {
                     </div>
                     <div className="text-xs text-muted-foreground mt-1.5">ALL SYSTEMS NOMINAL</div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </>

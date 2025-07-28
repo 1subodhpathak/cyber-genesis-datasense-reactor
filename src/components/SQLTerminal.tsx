@@ -84,7 +84,16 @@ const SQLTerminal = () => {
   }, [currentQuery]);
 
   return (
-    <div className="fixed left-6 top-1/4 -translate-y-1/2 z-20 w-60">
+    <div className="fixed z-20 w-60"
+      style={{
+          position: 'fixed',
+          left: 18,
+          top: 'calc(50% - 280px)',
+          // width: HUD_WIDTH,
+          // height: HUD_HEIGHT,
+          pointerEvents: 'auto',
+        }}
+      >
       <div className="hud-overlay border-0 p-4 max-h-48 overflow-hidden">
       {/* <div className="hud-overlay border border-primary/30 p-4 h-64 overflow-hidden"> */}
         <div className="flex items-center gap-2 mb-3 border-b border-primary/20 pb-2">

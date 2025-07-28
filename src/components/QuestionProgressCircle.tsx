@@ -46,7 +46,7 @@ function AnimatedCircle({
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center group"
+      className="relative flex flex-col items-center justify-center group cursor-pointer"
       style={{ width: CIRCLE_SIZE, height: CIRCLE_SIZE }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

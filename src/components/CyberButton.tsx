@@ -39,17 +39,17 @@ const CyberButton = ({
   // Set fixed background color on hover for primary/secondary
   let backgroundColor = colors[bgIndex];
   if (isHovered) {
-    if (variant === 'primary') backgroundColor = '#1FC4D6';
+    if (variant === 'primary') backgroundColor = '#ffffff';
     if (variant === 'secondary') backgroundColor = '#FFFFFF';
-    if (variant === 'outline') backgroundColor = '#1FC4D6';
+    if (variant === 'outline') backgroundColor = '#ffffff';
   }
 
   const baseClasses = "relative overflow-hidden font-mono font-bold tracking-wider transition-all duration-300 group";
 
   const variantClasses = {
-    primary: `border-2 border-primary text-black hover:bg-primary hover:text-background cyber-glow`,
-    secondary: `border-2 border-accent text-black hover:bg-accent hover:text-background cyber-glow`,
-    outline: `bg-[#1FC4D6] border border-muted-foreground text-black hover:border-primary hover:text-background cyber-glow`
+    primary: `border-1 border-primary text-black hover:bg-white hover:text-background cyber-glow`,
+    secondary: `border-1 border-accent text-black hover:bg-white hover:text-background cyber-glow`,
+    outline: `bg-[#1FC4D6] border border-muted-foreground text-black  hover:text-background cyber-glow`
   };
 
   const sizeClasses = {

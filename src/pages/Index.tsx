@@ -1070,12 +1070,12 @@ const Index = () => {
       
       {/* Main Content */}
       <audio ref={buttonclickRef} src={buttonClickSound} preload="auto" />
-      <div className="flex flex-col min-h-[90dvh] relative overflow-hidden">
+      <div className="flex flex-col min-h-[100dvh] relative overflow-hidden">
         {/* Mobile Layout */}
         {isMobile ? (
-          <div className={`flex flex-col min-h-[90dvh] ${isSmallScreen ? 'p-2 pt-16' : 'p-4 pt-20'}`}>
+          <div className={`flex flex-col min-h-[100dvh] ${isSmallScreen ? 'p-2 pt-16' : 'p-4 pt-20'}`}>
             {/* Title Area - Adjusted for small screens */}
-            <div className={`text-center ${isSmallScreen ? 'mb-6 pt-2' : 'mb-20 pt-8'}`}>
+            <div className={`text-center ${isSmallScreen ? 'mb-6 pt-2' : 'mb-10 pt-8'}`}>
               <div className="relative w-fit mx-auto">
                 <div className="absolute inset-0 blur-xl rounded-lg pointer-events-none"></div>
                 <h1 className={`${isSmallScreen ? 'text-xl' : 'text-3xl sm:text-4xl'} font-black-ops-one font-bold text-primary ${isSmallScreen ? 'mb-1' : 'mb-3'} px-2 break-words leading-tight`}>
@@ -1091,7 +1091,17 @@ const Index = () => {
             <div className={`flex-1 flex items-center justify-center ${isSmallScreen ? 'mb-6' : 'mb-20'}`}>
               <div className={`space-y-${isSmallScreen ? '3' : '6'}`}>
                 {/* First row - Two buttons */}
-                <div className={`flex gap-${isSmallScreen ? '2' : '4'} justify-center`}>
+                <div className={`flex gap-${isSmallScreen ? '2' : '4'} justify-center mb-3`}>
+                  <CyberButton 
+                    variant="primary" 
+                    size={isSmallScreen ? "xs" : "sm"}
+                    className={`flex-1 ${isSmallScreen ? 'max-w-[160px] text-xs' : 'max-w-[200px]'}`}
+                    style={{ animationDelay: '0s' }}
+                    onClick={() => handleOpenPopup('Practice Question')}
+                  >
+                    Practice Question
+                  </CyberButton>
+
                   <CyberButton 
                     variant="primary" 
                     size={isSmallScreen ? "xs" : "sm"}
@@ -1102,7 +1112,7 @@ const Index = () => {
                     Join Live Tests
                   </CyberButton>
                   
-                  <CyberButton 
+                  {/* <CyberButton 
                     variant="primary" 
                     size={isSmallScreen ? "xs" : "sm"}
                     className={`flex-1 ${isSmallScreen ? 'max-w-[120px] text-xs' : 'max-w-[140px]'}`}
@@ -1110,11 +1120,11 @@ const Index = () => {
                     onClick={() => handleOpenPopup('Custom Test')}
                   >
                     Custom Test
-                  </CyberButton>
+                  </CyberButton> */}
                 </div>
                 
                 {/* Second row - Dashboard button (circular) */}
-                <div className="flex justify-center">
+                <div className="flex justify-center mb-3">
                   <CyberButton
                     variant="secondary"
                     size="md"
@@ -1158,8 +1168,18 @@ const Index = () => {
                   >
                     Mock Tests
                   </CyberButton>
-                  
+
                   <CyberButton 
+                    variant="primary" 
+                    size={isSmallScreen ? "xs" : "sm"}
+                    className={`flex-1 ${isSmallScreen ? 'max-w-[120px] text-xs' : 'max-w-[140px]'}`}
+                    style={{ animationDelay: '0s' }}
+                    onClick={() => handleOpenPopup('Custom Test')}
+                  >
+                    Custom Test
+                  </CyberButton>
+                  
+                  {/* <CyberButton 
                     variant="primary" 
                     size={isSmallScreen ? "xs" : "sm"}
                     className={`flex-1 ${isSmallScreen ? 'max-w-[160px] text-xs' : 'max-w-[200px]'}`}
@@ -1167,7 +1187,7 @@ const Index = () => {
                     onClick={() => handleOpenPopup('Practice Question')}
                   >
                     Practice Question
-                  </CyberButton>
+                  </CyberButton> */}
                 </div>
               </div>
             </div>

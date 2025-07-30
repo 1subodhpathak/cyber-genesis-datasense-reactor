@@ -387,7 +387,7 @@ const Index = () => {
       
       {/* Main Content */}
       <audio ref={buttonclickRef} src={buttonClickSound} preload="auto" />
-      <div className="flex flex-col h-dvh relative overflow-hidden">
+      <div className="flex flex-col h-full relative overflow-hidden">
         {/* Mobile Layout */}
         {isMobile ? (
           <div className={`flex flex-col h-full ${isSmallScreen ? 'p-2 pt-16' : 'p-4 pt-20'}`}>

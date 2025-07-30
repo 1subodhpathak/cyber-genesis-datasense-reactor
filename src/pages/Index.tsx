@@ -1144,7 +1144,7 @@ const Index = () => {
             </div>
             
             <div className={`flex-shrink-0 ${isSmallScreen ? 'mb-2' : 'mb-6'}`}>
-              <Chatbot />
+              {/* <Chatbot /> */}
             </div>
           </div>
         ) : (

@@ -387,10 +387,10 @@ const Index = () => {
       
       {/* Main Content */}
       <audio ref={buttonclickRef} src={buttonClickSound} preload="auto" />
-      <div className="flex flex-col h-full relative overflow-hidden">
+      <div className="flex flex-col h-dvh relative overflow-hidden">
         {/* Mobile Layout */}
         {isMobile ? (
-          <div className={`flex flex-col h-full ${isSmallScreen ? 'p-2 pt-16' : 'p-4 pt-20'}`}>
+          <div className={`flex flex-col ${isSmallScreen ? 'p-2 pt-16' : 'p-4 pt-20'}`}>
             {/* Title Area - Adjusted for small screens */}
             <div className={`text-center ${isSmallScreen ? 'mb-6 pt-2' : 'mb-10 pt-8'}`}>
               <div className="relative w-fit mx-auto">

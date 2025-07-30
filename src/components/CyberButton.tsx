@@ -5,7 +5,7 @@ import { ReactNode, useState, useEffect } from 'react';
 interface CyberButtonProps {
   children?: ReactNode;
   variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xs';
   className?: string;
   onClick?: () => void;
   icon?: ReactNode;

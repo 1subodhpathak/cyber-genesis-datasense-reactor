@@ -681,8 +681,6 @@
 
 // export default Index;
 
-// src/pages/Index.tsx
-
 import { useState, useRef, useEffect, FormEvent } from 'react';
 import CyberLoader from '@/components/CyberLoader';
 import ThreeBackground from '@/components/ThreeBackground';
@@ -733,7 +731,7 @@ const useIsSmallScreen = () => {
   return isSmallScreen;
 };
 
-// ... (Other components like AnimatedBar, RotatingSubheading, AnimatedUserCounter, Chatbot remain the same) ...
+// AnimatedBar component for smooth progress animation
 const AnimatedBar = ({ color }: { color: string }) => {
   const [progress, setProgress] = useState(0);
 
@@ -748,6 +746,7 @@ const AnimatedBar = ({ color }: { color: string }) => {
       const elapsed = (timestamp - startTime) % duration;
       const progress = elapsed / duration; // 0 to 1
       
+      // Ease-in-out function for smooth start and end
       const easeInOut = (t: number) => {
         return t < 0.5 
           ? 2 * t * t 
@@ -759,6 +758,7 @@ const AnimatedBar = ({ color }: { color: string }) => {
       
       setProgress(currentPercent);
       
+      // Continue the animation indefinitely
       animationFrame = requestAnimationFrame(animate);
     };
 
@@ -777,6 +777,7 @@ const AnimatedBar = ({ color }: { color: string }) => {
   );
 };
 
+// Rotating Subheading Component
 const RotatingSubheading = () => {
   const subheadings = [
     'EMPOWERING DATA ENTHUSIASTS TO EXPERTISE',
@@ -810,22 +811,25 @@ const RotatingSubheading = () => {
   );
 };
 
+// Animated User Counter Component
 const AnimatedUserCounter = () => {
   const [count, setCount] = useState(0);
   const targetCount = useRef(0);
 
   useEffect(() => {
-    targetCount.current = Math.floor(Math.random() * 101) + 1200;
+    // Generate random number between 1200-1300 on component mount
+    targetCount.current = Math.floor(Math.random() * 101) + 1200; // 1200 to 1300
     
     let start: number | null = null;
     let animationFrame: number;
-    const duration = 2000;
+    const duration = 2000; // 2 seconds animation
 
     const animate = (timestamp: number) => {
       if (!start) start = timestamp;
       const elapsed = timestamp - start;
       const progress = Math.min(elapsed / duration, 1);
       
+      // Easing function for smooth animation
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
       const currentCount = Math.floor(easeOutQuart * targetCount.current);
       
@@ -886,7 +890,9 @@ const Chatbot = () => {
   return (
     <div className={`relative w-full max-w-md mx-auto flex flex-col ${isSmallScreen ? 'h-36' : 'h-48 md:h-56'}`}>
       <audio ref={buttonclickRef} src={buttonClickSound} preload="auto" />
+      {/* Glow background */}
       <div className="absolute inset-0 z-0 rounded-lg pointer-events-none animate-pulse-glow bg-cyan-400/20 blur-xl" />
+      {/* Chatbot content */}
       <div className="relative z-10 bg-[#0C1116] text-cyan-100 shadow-[0_0_20px_rgba(0,255,255,0.25)] flex flex-col h-full rounded-lg">
         <div className={`border-b border-cyan-400/25 px-2.5 py-1.5 font-bold tracking-widest ${isSmallScreen ? 'text-xs' : 'text-sm md:text-base'} text-cyan-200 drop-shadow-lg text-left`}>
           DataSense AI Assistant
@@ -952,7 +958,6 @@ const Chatbot = () => {
   );
 };
 
-
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
@@ -977,6 +982,7 @@ const Index = () => {
     }
   };
 
+  // Map badgeType to description and link
   const popupData = {
     'SQL': {
       description: 'Ready to join a live quiz? You will be redirected to the quiz arena.',
@@ -1004,19 +1010,21 @@ const Index = () => {
     return <CyberLoader onComplete={() => setIsLoading(false)} />;
   }
 
-  const handleOpenPopup = (badgeType: string) => {
+  // Helper to open popup with badge type
+  const handleOpenPopup = (badgeType) => {
     playButtonClick();
     setPopupBadge(badgeType);
-    setPopupDesc(popupData[badgeType as keyof typeof popupData]?.description || 'Are you ready to proceed?');
-    setPopupLink(popupData[badgeType as keyof typeof popupData]?.yesLink || '/');
+    setPopupDesc(popupData[badgeType]?.description || 'Are you ready to proceed?');
+    setPopupLink(popupData[badgeType]?.yesLink || '/');
     setPopupOpen(true);
   };
   
   return (
-    // This main container is a flex column that sets the screen height. This is correct.
-    <div className="min-h-[100dvh] bg-black relative flex flex-col overflow-hidden">
+    <div className="min-h-[100dvh] relative overflow-hidden">
+      {/* Three.js Background - Always render */}
       <ThreeBackground />
       
+      {/* Desktop-only components */}
       {!isMobile && (
         <>
           <PathTrackerHUD />
@@ -1036,6 +1044,8 @@ const Index = () => {
           }} />
           <WorldMapHUD style={{ right: 10, bottom: 10 }} />
           <CyberCoreHUD style={{ left: 10, bottom: 10 }} />
+          
+          {/* Floating Geometric Elements - Desktop only */}
           <div className="fixed inset-0 pointer-events-none z-10">
             {Array.from({ length: 5 }).map((_, i) => (
               <div
@@ -1055,15 +1065,16 @@ const Index = () => {
         </>
       )}
       
+      {/* Navigation - Always render */}
       <CyberNav />
       
+      {/* Main Content */}
       <audio ref={buttonclickRef} src={buttonClickSound} preload="auto" />
-
-      {/* Main Content Area: Use flex-1 to make it fill the remaining space */}
-      <main className="flex-1 flex flex-col relative overflow-y-auto">
+      <div className="flex flex-col min-h-[100dvh] relative overflow-hidden">
+        {/* Mobile Layout */}
         {isMobile ? (
-          // Mobile Layout: Padding is applied here to account for the nav bar.
-          <div className={`flex flex-col flex-1 ${isSmallScreen ? 'p-2 pt-16' : 'p-4 pt-20'}`}>
+          <div className={`flex flex-col min-h-[100dvh] ${isSmallScreen ? 'p-2 pt-16' : 'p-4 pt-20'}`}>
+            {/* Title Area - Adjusted for small screens */}
             <div className={`text-center ${isSmallScreen ? 'mb-6 pt-2' : 'mb-10 pt-8'}`}>
               <div className="relative w-fit mx-auto">
                 <div className="absolute inset-0 blur-xl rounded-lg pointer-events-none"></div>
@@ -1076,14 +1087,16 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Use flex-1 here to push the chatbot to the bottom */}
+            {/* Button Area - Adjusted spacing for small screens */}
             <div className={`flex-1 flex items-center justify-center ${isSmallScreen ? 'mb-6' : 'mb-20'}`}>
               <div className={`space-y-${isSmallScreen ? '3' : '6'}`}>
+                {/* First row - Two buttons */}
                 <div className={`flex gap-${isSmallScreen ? '2' : '4'} justify-center mb-3`}>
                   <CyberButton 
                     variant="primary" 
                     size={isSmallScreen ? "xs" : "sm"}
                     className={`flex-1 ${isSmallScreen ? 'max-w-[160px] text-xs' : 'max-w-[200px]'}`}
+                    style={{ animationDelay: '0s' }}
                     onClick={() => handleOpenPopup('Practice Question')}
                   >
                     Practice Question
@@ -1093,22 +1106,44 @@ const Index = () => {
                     variant="primary" 
                     size={isSmallScreen ? "xs" : "sm"}
                     className={`flex-1 ${isSmallScreen ? 'max-w-[160px] text-xs' : 'max-w-[200px]'}`}
+                    style={{ animationDelay: '0s' }}
                     onClick={() => handleOpenPopup('SQL')}
                   >
                     Join Live Tests
                   </CyberButton>
+                  
+                  {/* <CyberButton 
+                    variant="primary" 
+                    size={isSmallScreen ? "xs" : "sm"}
+                    className={`flex-1 ${isSmallScreen ? 'max-w-[120px] text-xs' : 'max-w-[140px]'}`}
+                    style={{ animationDelay: '0s' }}
+                    onClick={() => handleOpenPopup('Custom Test')}
+                  >
+                    Custom Test
+                  </CyberButton> */}
                 </div>
                 
+                {/* Second row - Dashboard button (circular) */}
                 <div className="flex justify-center mb-3">
                   <CyberButton
                     variant="secondary"
                     size="md"
-                    className={`!rounded-full ${isSmallScreen ? '!w-10 !h-10' : '!w-12 !h-12'} p-0 shadow-cyan-400/40 hover:shadow-cyan-400/80 transition-shadow animate-spin-slow ring-2 ring-cyan-400/60 hover:ring-cyan-400/90 relative group`}
+                    className={`
+                      !rounded-full
+                      ${isSmallScreen ? '!w-10 !h-10' : '!w-12 !h-12'}
+                      p-0
+                      shadow-cyan-400/40 hover:shadow-cyan-400/80 transition-shadow
+                      animate-spin-slow
+                      ring-2 ring-cyan-400/60 hover:ring-cyan-400/90
+                      relative
+                      group
+                    `}
                     style={{
                       minWidth: isSmallScreen ? '2.5rem' : '3rem',
                       minHeight: isSmallScreen ? '2.5rem' : '3rem',
                       width: isSmallScreen ? '2.5rem' : '3rem',
                       height: isSmallScreen ? '2.5rem' : '3rem',
+                      animationDelay: '0s'
                     }}
                     icon={
                       <LayoutDashboard
@@ -1118,14 +1153,17 @@ const Index = () => {
                       />
                     }
                     onClick={() => handleOpenPopup('Dashboard')}
-                  />
+                  >
+                  </CyberButton>
                 </div>
                 
+                {/* Third row - Two buttons */}
                 <div className={`flex gap-${isSmallScreen ? '2' : '4'} justify-center`}>
                   <CyberButton 
                     variant="primary" 
                     size={isSmallScreen ? "xs" : "sm"}
                     className={`flex-1 ${isSmallScreen ? 'max-w-[120px] text-xs' : 'max-w-[140px]'}`}
+                    style={{ animationDelay: '0s' }}
                     onClick={() => handleOpenPopup('Mock Quiz')}
                   >
                     Mock Tests
@@ -1135,23 +1173,37 @@ const Index = () => {
                     variant="primary" 
                     size={isSmallScreen ? "xs" : "sm"}
                     className={`flex-1 ${isSmallScreen ? 'max-w-[120px] text-xs' : 'max-w-[140px]'}`}
+                    style={{ animationDelay: '0s' }}
                     onClick={() => handleOpenPopup('Custom Test')}
                   >
                     Custom Test
                   </CyberButton>
+                  
+                  {/* <CyberButton 
+                    variant="primary" 
+                    size={isSmallScreen ? "xs" : "sm"}
+                    className={`flex-1 ${isSmallScreen ? 'max-w-[160px] text-xs' : 'max-w-[200px]'}`}
+                    style={{ animationDelay: '0s' }}
+                    onClick={() => handleOpenPopup('Practice Question')}
+                  >
+                    Practice Question
+                  </CyberButton> */}
                 </div>
               </div>
             </div>
             
+            {/* Chatbot Area - Adjusted for small screens */}
             <div className={`flex-shrink-0 ${isSmallScreen ? 'mb-2' : 'mb-6'}`}>
-              {/* <Chatbot /> */}
+              <Chatbot />
             </div>
           </div>
         ) : (
-          /* Desktop Layout - Now flex-based for proper alignment */
-          <div className="flex-1 flex flex-col">
+          /* Desktop Layout - Original */
+          <>
+            {/* Top Section - Title and Buttons */}
             <div className="flex-1 flex items-center justify-center py-3 mt-8">
               <div className="text-center space-y-5 max-w-5xl mx-auto px-0">
+                {/* Main Title */}
                 <div className="relative w-fit mx-auto">
                   <div className="absolute inset-0 blur-xl rounded-lg pointer-events-none"></div>
                   <h1 className="text-3xl md:text-5xl font-black-ops-one font-bold text-primary mb-2.5">
@@ -1161,13 +1213,16 @@ const Index = () => {
                   <div className="w-28 h-px mx-auto mt-6" />
                 </div>
                 
+                {/* Action Buttons */}
                 <div className="mb-8">
                   <div className="flex flex-col sm:flex-row gap-1 items-center justify-center mb-5">
+                    {/* Join Live Quizzes */}
                     <div className="group">
                       <CyberButton 
                         variant="primary" 
                         size="md"
                         className="w-56"
+                        style={{ animationDelay: '0s' }}
                         onClick={() => handleOpenPopup('Practice Question')}
                       >
                         Practice Questions
@@ -1176,11 +1231,21 @@ const Index = () => {
                         Personalized Training Protocols
                       </div>
                     </div>
+                    {/* Dashboard */}
                     <div className="group">
                       <CyberButton
                         variant="secondary"
                         size="md"
-                        className="!rounded-full !w-10 !h-10 p-0 shadow-cyan-400/40 hover:shadow-cyan-400/80 transition-shadow animate-spin-slow ring-2 ring-cyan-400/60 hover:ring-cyan-400/90 relative group"
+                        className="
+                          !rounded-full
+                          !w-10 !h-10
+                          p-0
+                          shadow-cyan-400/40 hover:shadow-cyan-400/80 transition-shadow
+                          animate-spin-slow
+                          ring-2 ring-cyan-400/60 hover:ring-cyan-400/90
+                          relative
+                          group
+                        "
                         style={{
                           minWidth: '4rem',
                           minHeight: '4rem',
@@ -1196,16 +1261,19 @@ const Index = () => {
                           />
                         }
                         onClick={() => handleOpenPopup('Dashboard')}
-                      />
+                      >
+                      </CyberButton>
                       <div className="text-xs font-mono text-muted-foreground mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         Neural Dashboard
                       </div>
                     </div>
+                    {/* Custom Test */}
                     <div className="group">
                       <CyberButton 
                         variant="primary" 
                         size="md"
                         className="w-56"
+                        style={{ animationDelay: '0s' }}
                         onClick={() => handleOpenPopup('SQL')}
                       >
                         Join Live Tests
@@ -1215,11 +1283,13 @@ const Index = () => {
                       </div>
                     </div>
                   </div>
+                  {/* New row for MOCK QUIZ and PRACTICE QUESTION */}
                   <div className="flex flex-col sm:flex-row gap-5 items-center justify-center">
                     <CyberButton 
                       variant="primary" 
                       size="md"
                       className="w-48"
+                      style={{ animationDelay: '0s' }}
                       onClick={() => handleOpenPopup('Mock Quiz')}
                     >
                       Mock Tests
@@ -1229,6 +1299,7 @@ const Index = () => {
                       variant="primary" 
                       size="md"
                       className="w-48"
+                      style={{ animationDelay: '0s' }}
                       onClick={() => handleOpenPopup('Custom Test')}
                     >
                       Custom Test
@@ -1237,14 +1308,17 @@ const Index = () => {
                   <div className="w-28 h-px mx-auto mt-6" />
                 </div>
                 
+                {/* Chatbot - Fixed height, won't push content */}
                 <div className="mb-6">
                   <Chatbot />
                 </div>
               </div>
             </div>
             
+            {/* Bottom Section - Training Matrix (Fixed at bottom) */}
             <div className="flex-shrink-0 pb-6">
               <div className="flex justify-center gap-2.5 max-w-3xl mx-auto px-3">
+                {/* TRAINING MATRIX STATUS Card */}
                 <div className="hud-overlay border border-primary/30 p-3 w-60">
                   <div className="text-left">
                     <div className="text-cyber-success font-mono text-xs mb-1.5 font-bold">● 3000+ Practice Questions</div>
@@ -1267,10 +1341,11 @@ const Index = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </>
         )}
-      </main>
+      </div>
       
+      {/* Popup - Always render */}
       <FuturisticGlitchPopup 
         open={popupOpen} 
         onClose={() => setPopupOpen(false)} 

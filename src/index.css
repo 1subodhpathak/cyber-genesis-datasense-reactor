@@ -1,10 +1,14 @@
 html,
 body,
 #root {
-  height: 100%;
+  /* This makes the app container fill the browser window */
+  height: 100%; 
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* Use the CSS variable for height, with a fallback to dvh */
+  height: var(--app-height, 100dvh);
+  /* Prevents accidental scrolling on the body itself */
+  overflow: hidden; 
 }
 
 @tailwind base;

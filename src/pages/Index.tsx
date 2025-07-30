@@ -1020,7 +1020,7 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-[100dvh] relative overflow-hidden">
+    <div className="">
       {/* Three.js Background - Always render */}
       <ThreeBackground />
       
@@ -1073,7 +1073,7 @@ const Index = () => {
       <div className="flex flex-col min-h-[100dvh] relative overflow-hidden">
         {/* Mobile Layout */}
         {isMobile ? (
-          <div className={`flex flex-col min-h-[100dvh] ${isSmallScreen ? 'p-2 pt-16' : 'p-4 pt-20'}`}>
+          <div className={`flex flex-col  ${isSmallScreen ? 'p-2 pt-16' : 'p-4 pt-20'}`}>
             {/* Title Area - Adjusted for small screens */}
             <div className={`text-center ${isSmallScreen ? 'mb-6 pt-2' : 'mb-10 pt-8'}`}>
               <div className="relative w-fit mx-auto">
